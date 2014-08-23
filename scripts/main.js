@@ -1,7 +1,9 @@
-define(["../scripts/map/map.js", "../scripts/constants.js"], function(Map, Constants) {
+define(["../scripts/map/map.js", "../scripts/constants.js",
+        "../scripts/context.js"], function(Map, Constants, Context) {
     var clientWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     var clientHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
+    var context = new Context({debug: false});
     var game = new Phaser.Game(clientWidth, clientHeight, Phaser.AUTO, 'canvas', {
         preload: preload,
         create: create,
@@ -16,7 +18,9 @@ define(["../scripts/map/map.js", "../scripts/constants.js"], function(Map, Const
      * Preloading assets (images...)
      */
     function preload() {
-        game.time.advancedTiming = true; // to enable FPS counting
+        if (context.DEBUG) {
+            game.time.advancedTiming = true; // to enable FPS counting
+        }
         //TODO To be implemented
     }
 
@@ -47,7 +51,9 @@ define(["../scripts/map/map.js", "../scripts/constants.js"], function(Map, Const
      * here.
      */
     function render() {
-        game.debug.text(game.time.fps || '--', 2, 14, "#00ff00");
+        if (context.DEBUG) {
+            game.debug.text(game.time.fps || '--', 2, 14, "#00ff00");
+        }
     }
 
     /**
