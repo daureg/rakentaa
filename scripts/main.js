@@ -1,11 +1,14 @@
-define(["/scripts/map/map.js", "/scripts/constants.js"], function(Map, Constants) {
+define(["../scripts/map/map.js", "../scripts/constants.js",
+        "../scripts/context.js"], function(Map, Constants, Context) {
     var clientWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     var clientHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
+    var context = new Context({debug: false});
     var game = new Phaser.Game(clientWidth, clientHeight, Phaser.AUTO, 'canvas', {
         preload: preload,
         create: create,
-        update: update
+        update: update,
+        render: render
     });
 
     var graphics, map;
@@ -15,6 +18,9 @@ define(["/scripts/map/map.js", "/scripts/constants.js"], function(Map, Constants
      * Preloading assets (images...)
      */
     function preload() {
+        if (context.DEBUG) {
+            game.time.advancedTiming = true; // to enable FPS counting
+        }
         //TODO To be implemented
     }
 
@@ -37,6 +43,17 @@ define(["/scripts/map/map.js", "/scripts/constants.js"], function(Map, Constants
     function update() {
         moveCameraByPointer(game.input.mousePointer);
         moveCameraByPointer(game.input.pointer1);
+    }
+
+    /**
+     * the render method is called AFTER the game renderer and plugins have
+     * rendered, so you're able to do any final post-processing style effects
+     * here.
+     */
+    function render() {
+        if (context.DEBUG) {
+            game.debug.text(game.time.fps || '--', 2, 14, "#00ff00");
+        }
     }
 
     /**
