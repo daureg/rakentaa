@@ -1,6 +1,7 @@
 define({
-    mapSize: [32,32],
+    mapSize: [32, 32],
     tileSize: 64,
+    
     /**
      * {Object}
      * Available tile types in the application
@@ -11,7 +12,7 @@ define({
         fillColor: 0x0000FF,
         strokeColor: 0x000000,
         strokeSize: 2
-        
+
     }, {
         typeId: 1,
         typeName: "Firewall",
@@ -24,5 +25,10 @@ define({
         fillColor: 0x00FF00,
         strokeColor: 0x000000,
         strokeSize: 2
-    }]
+    }],
+    
+    spriteKeys: {
+        baseStructure: "baseStructure",
+        neutralStructure: "neutralStructu0re"
+    }
 });
