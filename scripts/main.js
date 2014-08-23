@@ -1,9 +1,9 @@
 define(["../scripts/map/map.js", "../scripts/constants.js",
-        "../scripts/context.js"], function(Map, Constants, Context) {
+        "../scripts/context.js", "../scripts/log.js"], function(Map, Constants, Context, Log) {
     var clientWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     var clientHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
-    var context = new Context({debug: false});
+    var context = new Context({debug: true});
     var game = new Phaser.Game(clientWidth, clientHeight, Phaser.AUTO, 'canvas', {
         preload: preload,
         create: create,
@@ -52,7 +52,8 @@ define(["../scripts/map/map.js", "../scripts/constants.js",
      */
     function render() {
         if (context.DEBUG) {
-            game.debug.text(game.time.fps || '--', 2, 14, "#00ff00");
+            game.debug.text(game.time.fps || '--', 2, 14, "#000");
+            game.debug.text('Turn: '+context.TURN, 2, 30, "#000");
         }
     }
 
