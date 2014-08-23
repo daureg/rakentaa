@@ -1,4 +1,4 @@
-define(["/scripts/map/map.js", "/scripts/constants.js"], function(Map, Constants) {
+define(["../scripts/map/map.js", "../scripts/constants.js"], function(Map, Constants) {
     var clientWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     var clientHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
