@@ -10,6 +10,9 @@ define(["./constants.js"], function(Constants) {
         this.dest = null;
         this.pathSprites = game.add.group(undefined, "path_"+index);
 
+        /**
+         * Indicate that the player want to go there
+         */
         this.setDestination = function(dest) {
             if (this.dest !== null && dest[0] === this.dest[0] && dest[1] === this.dest[1]) {
                 return this.moveToCell();
@@ -26,14 +29,25 @@ define(["./constants.js"], function(Constants) {
             }
         };
 
+        /**
+         * Actually move to the set destination
+         */
         this.moveToCell = function() {
             var mapDest = map.cellIndexToWorldCoords(this.dest);
             this.sprite.x = mapDest[0];
             this.sprite.y = mapDest[1];
-            game.camera.focusOnXY(mapDest[0], mapDest[1]);
             this.mapPos = _.clone(this.dest);
+            this.focusCamera();
             this.dest = null;
             this.pathSprites.removeAll();
+        };
+
+        /**
+         * Center the camera on this army
+         */
+        this.focusCamera = function() {
+            var worldPos = map.cellIndexToWorldCoords(this.mapPos);
+            game.camera.focusOnXY(worldPos[0], worldPos[1]);
         };
     };
 });
