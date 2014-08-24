@@ -25,5 +25,10 @@ define({
         if (console && console.info) {
             console.info(message);
         }
+    },
+    assert: function(condition, message) {
+        if (console && console.assert) {
+            console.assert(condition, message);
+        }
     }
 });
