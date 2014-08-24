@@ -1,5 +1,6 @@
 define(["../scripts/map/map.js", "../scripts/constants.js",
-        "../scripts/context.js", "../scripts/log.js"], function(Map, Constants, Context, Log) {
+        "../scripts/context.js", "../scripts/log.js",
+        "../scripts/army.js"], function(Map, Constants, Context, Log, Army) {
     var clientWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     var clientHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
@@ -13,6 +14,7 @@ define(["../scripts/map/map.js", "../scripts/constants.js",
 
     var graphics, map, cursors;
     var previousCameraPosition;
+    var players = [];
 
     /**
      * Preloading assets (images...)
@@ -21,7 +23,8 @@ define(["../scripts/map/map.js", "../scripts/constants.js",
         if (context.DEBUG) {
             game.time.advancedTiming = true; // to enable FPS counting
         }
-        //TODO To be implemented
+        _.forIn(Constants.spritesInfo, function(sprite) {
+            game.load.image(sprite.name, sprite.path);});
     }
 
     /**
@@ -35,6 +38,16 @@ define(["../scripts/map/map.js", "../scripts/constants.js",
         graphics = this.game.add.graphics(0, 0);
         map = new Map(graphics, Constants.mapSize[0], Constants.mapSize[1], Constants.tileSize);
         map.drawRandomMap();
+
+        players.push(new Army(game, map, 0));
+        players.push(new Army(game, map, 1));
+
+        game.input.onDown.add(clickDown);
+    }
+
+    function clickDown(pointer) {
+        var cell = map.worldCoordsToCellIndex([pointer.worldX, pointer.worldY]);
+        players[0].setDestination(cell);
     }
 
     /**

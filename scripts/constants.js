@@ -31,8 +31,11 @@ define({
     // pressed.
     mapSpeed: 8,
     
-    spriteKeys: {
-        baseStructure: "baseStructure",
-        neutralStructure: "neutralStructu0re"
-    }
+    spritesInfo: {
+        baseStructure: {name: "baseStructure", path: "../img/missing.png"},
+        neutralseStructure: {name: "neutralseStructure", path: "../img/missing.png"},
+        pathMarker: {name: "pathMarker", path: "../img/missing.png"},
+        redArmy: {name: "redArmy", path: "../img/red-flag.png"},
+        blueArmy: {name: "blueArmy", path: "../img/blue-flag.png"},
+    },
 });
