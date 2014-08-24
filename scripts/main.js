@@ -42,11 +42,8 @@ define(["../scripts/map/map.js", "../scripts/constants.js",
      * Check inputs/collision, etc...
      */
     function update() {
-        /*
-        moveCameraByPointer(game.input.mousePointer);
-        moveCameraByPointer(game.input.pointer1);
-        */
-       moveCameraByCursorsKey();
+        // TODO move the map by placing the cursor on the edge of the screen
+        moveCameraByCursorsKey();
     }
 
     /**
@@ -70,24 +67,5 @@ define(["../scripts/map/map.js", "../scripts/constants.js",
         if (cursors.down.isDown) { dy += +Constants.mapSpeed; }
         game.camera.x += dx;
         game.camera.y += dy;
-    }
-    /**
-     * Moves the game camera at the given pointer
-     * @param {Phaser.Pointer} pointer the mouse pointer
-     */
-    function moveCameraByPointer(pointer) {
-        if (!pointer.timeDown) {
-            return;
-        }
-        if (pointer.isDown && !pointer.targetObject) {
-            if (previousCameraPosition) {
-                game.camera.x += previousCameraPosition.x - pointer.position.x;
-                game.camera.y += previousCameraPosition.y - pointer.position.y;
-            }
-            previousCameraPosition = pointer.position.clone();
-        }
-        if (pointer.isUp) {
-            previousCameraPosition = null;
-        }
     }
 });

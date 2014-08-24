@@ -26,6 +26,10 @@ define({
         strokeColor: 0x000000,
         strokeSize: 2
     }],
+
+    // by how much (in world coordinates) the camera move everytime a key is
+    // pressed.
+    mapSpeed: 8,
     
     spriteKeys: {
         baseStructure: "baseStructure",
