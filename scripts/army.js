@@ -9,6 +9,7 @@ define(["./constants.js"], function(Constants) {
         this.sprite.anchor.setTo(0.5, 0.5);
         this.dest = null;
         this.pathSprites = game.add.group(undefined, "path_"+index);
+        this.lastMoveSize = 0;
 
         /**
          * Indicate that the player want to go there
@@ -26,6 +27,7 @@ define(["./constants.js"], function(Constants) {
                 var s = game.add.sprite(c[0], c[1], Constants.spritesInfo.pathMarker.name);
                 s.anchor.setTo(0.5, 0.5);
                 this.pathSprites.add(s);
+                this.lastMoveSize += 1;
             }
         };
 
@@ -40,6 +42,8 @@ define(["./constants.js"], function(Constants) {
             this.focusCamera();
             this.dest = null;
             this.pathSprites.removeAll();
+            this.movePoint -= this.lastMoveSize;
+            this.lastMoveSize = 0;
         };
 
         /**
