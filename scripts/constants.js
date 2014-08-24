@@ -38,4 +38,10 @@ define({
         redArmy: {name: "redArmy", path: "../img/red-flag.png"},
         blueArmy: {name: "blueArmy", path: "../img/blue-flag.png"},
     },
+
+    ressourcesMap: {
+        "gold": {index: 0, icon: "../img/coins.png"},
+        "gems": {index: 1, icon: "../img/diamonds.png"},
+    },
+
 });

@@ -1,6 +1,7 @@
 define(["../scripts/map/map.js", "../scripts/constants.js",
         "../scripts/context.js", "../scripts/log.js",
-        "../scripts/army.js"], function(Map, Constants, Context, Log, Army) {
+        "../scripts/army.js", "../scripts/player.js"],
+        function(Map, Constants, Context, Log, Army, Player) {
     var clientWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     var clientHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
@@ -40,17 +41,18 @@ define(["../scripts/map/map.js", "../scripts/constants.js",
         map.drawRandomMap();
 
         for (var i = 0, len = context.NB_PLAYERS; i < len; i++) {
-            players.push(new Army(game, map, i));
+            players.push(new Player(game, map, i));
         }
 
         game.input.onDown.add(clickDown);
         var spacebar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         spacebar.onUp.add(nextTurn);
+        nextTurn();
     }
 
     function clickDown(pointer) {
         var cell = map.worldCoordsToCellIndex([pointer.worldX, pointer.worldY]);
-        players[current_player()].setDestination(cell);
+        players[current_player()].army.setDestination(cell);
     }
 
     /**
@@ -90,6 +92,6 @@ define(["../scripts/map/map.js", "../scripts/constants.js",
     }
     function nextTurn() {
         context.TURN++;
-        players[current_player()].focusCamera();
+        players[current_player()].startTurn();
     }
 });

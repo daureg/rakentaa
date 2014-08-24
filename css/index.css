@@ -3,3 +3,15 @@
     top: 0;
     left: 0;
 }
+#ressources {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    background: white;
+    border-radius: 5px;
+}
+#ressources img {
+    vertical-align: middle;
+    margin: 0 10px 0 30px;
+}
