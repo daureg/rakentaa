@@ -11,7 +11,7 @@ define(["../scripts/map/map.js", "../scripts/constants.js",
         render: render
     });
 
-    var graphics, map;
+    var graphics, map, cursors;
     var previousCameraPosition;
 
     /**
@@ -29,6 +29,7 @@ define(["../scripts/map/map.js", "../scripts/constants.js",
      * Create sprites or anything needing assets, initialize physics, etc...
      */
     function create() {
+        cursors = game.input.keyboard.createCursorKeys();
 
         game.world.setBounds(0, 0, Constants.mapSize[0] * Constants.tileSize, Constants.mapSize[1] * Constants.tileSize);
         graphics = this.game.add.graphics(0, 0);
@@ -41,8 +42,11 @@ define(["../scripts/map/map.js", "../scripts/constants.js",
      * Check inputs/collision, etc...
      */
     function update() {
+        /*
         moveCameraByPointer(game.input.mousePointer);
         moveCameraByPointer(game.input.pointer1);
+        */
+       moveCameraByCursorsKey();
     }
 
     /**
@@ -57,6 +61,16 @@ define(["../scripts/map/map.js", "../scripts/constants.js",
         }
     }
 
+    function moveCameraByCursorsKey() {
+        var dx = 0,
+            dy = 0;
+        if (cursors.left.isDown) { dx += -Constants.mapSpeed; }
+        if (cursors.right.isDown) { dx += +Constants.mapSpeed; }
+        if (cursors.up.isDown) { dy += -Constants.mapSpeed; }
+        if (cursors.down.isDown) { dy += +Constants.mapSpeed; }
+        game.camera.x += dx;
+        game.camera.y += dy;
+    }
     /**
      * Moves the game camera at the given pointer
      * @param {Phaser.Pointer} pointer the mouse pointer
