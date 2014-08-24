@@ -39,15 +39,18 @@ define(["../scripts/map/map.js", "../scripts/constants.js",
         map = new Map(graphics, Constants.mapSize[0], Constants.mapSize[1], Constants.tileSize);
         map.drawRandomMap();
 
-        players.push(new Army(game, map, 0));
-        players.push(new Army(game, map, 1));
+        for (var i = 0, len = context.NB_PLAYERS; i < len; i++) {
+            players.push(new Army(game, map, i));
+        }
 
         game.input.onDown.add(clickDown);
+        var spacebar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        spacebar.onUp.add(nextTurn);
     }
 
     function clickDown(pointer) {
         var cell = map.worldCoordsToCellIndex([pointer.worldX, pointer.worldY]);
-        players[0].setDestination(cell);
+        players[current_player()].setDestination(cell);
     }
 
     /**
@@ -80,5 +83,13 @@ define(["../scripts/map/map.js", "../scripts/constants.js",
         if (cursors.down.isDown) { dy += +Constants.mapSpeed; }
         game.camera.x += dx;
         game.camera.y += dy;
+    }
+
+    function current_player() {
+        return context.TURN % context.NB_PLAYERS;
+    }
+    function nextTurn() {
+        context.TURN++;
+        players[current_player()].focusCamera();
     }
 });
