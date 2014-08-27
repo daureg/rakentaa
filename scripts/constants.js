@@ -1,7 +1,7 @@
 define({
     mapSize: [32, 32],
     tileSize: 64,
-    
+
     /**
      * {Object}
      * Available tile types in the application
@@ -30,18 +30,39 @@ define({
     // by how much (in world coordinates) the camera move everytime a key is
     // pressed.
     mapSpeed: 8,
-    
+
     spritesInfo: {
-        baseStructure: {name: "baseStructure", path: "../img/missing.png"},
-        neutralseStructure: {name: "neutralseStructure", path: "../img/missing.png"},
-        pathMarker: {name: "pathMarker", path: "../img/missing.png"},
-        redArmy: {name: "redArmy", path: "../img/red-flag.png"},
-        blueArmy: {name: "blueArmy", path: "../img/blue-flag.png"},
+        baseStructure: {
+            name: "baseStructure",
+            path: "../img/structures/base.png"
+        },
+        neutralseStructure: {
+            name: "neutralseStructure",
+            path: "../img/structures/neutral.png"
+        },
+        pathMarker: {
+            name: "pathMarker",
+            path: "../img/missing.png"
+        },
+        redArmy: {
+            name: "redArmy",
+            path: "../img/red-flag.png"
+        },
+        blueArmy: {
+            name: "blueArmy",
+            path: "../img/blue-flag.png"
+        },
     },
 
     ressourcesMap: {
-        "gold": {index: 0, icon: "../img/coins.png"},
-        "gems": {index: 1, icon: "../img/diamonds.png"},
+        "gold": {
+            index: 0,
+            icon: "../img/coins.png"
+        },
+        "gems": {
+            index: 1,
+            icon: "../img/diamonds.png"
+        },
     },
 
 });

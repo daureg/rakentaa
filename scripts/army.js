@@ -1,16 +1,22 @@
+//CR #8 Should be in a package since we might have different types of armies
 define(["./constants.js"], function(Constants) {
+    //CR #8 Document the class constructor & parameters
     return function(game, map, index) {
         this.movePoint = 6;
+        //CR #8 Move initial positions to constants (can be used for base structures)
         // this.mapPos = [_.random(Constants.mapSize[0]), _.random(Constants.mapSize[1])]
-        this.mapPos = [3+index, 1+index];
+        this.mapPos = [3 + index, 1 + index];
+        //CR #8 Hardcoded names > constants
         this.name = ['redArmy', 'blueArmy'][index];
         var worldPos = map.cellIndexToWorldCoords(this.mapPos);
         this.sprite = game.add.sprite(worldPos[0], worldPos[1], Constants.spritesInfo[this.name].name);
         this.sprite.anchor.setTo(0.5, 0.5);
         this.dest = null;
-        this.pathSprites = game.add.group(undefined, "path_"+index);
+        //CR #8 Hardcoded prefix > constants
+        this.pathSprites = game.add.group(undefined, "path_" + index);
         this.lastMoveSize = 0;
 
+        //CR #8 Document the parameter with @param
         /**
          * Indicate that the player want to go there
          */
@@ -19,7 +25,7 @@ define(["./constants.js"], function(Constants) {
                 return this.moveToCell();
             }
             var path = map.findPath(this.mapPos, dest);
-            var length = Math.min(path.length, this.movePoint+1) - 1;
+            var length = Math.min(path.length, this.movePoint + 1) - 1;
             this.dest = _.clone(path[length]);
             this.pathSprites.removeAll();
             for (var i = 1; i <= length; i++) {
