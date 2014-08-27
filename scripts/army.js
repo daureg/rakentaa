@@ -2,6 +2,7 @@
 define(["./constants.js"], function(Constants) {
     //CR #8 Document the class constructor & parameters
     return function(game, map, index) {
+        //CR #8 Hardcoded values > constants
         this.movePoint = 6;
         //CR #8 Move initial positions to constants (can be used for base structures)
         // this.mapPos = [_.random(Constants.mapSize[0]), _.random(Constants.mapSize[1])]
