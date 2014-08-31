@@ -22,7 +22,7 @@ define(["./constants.js"], function(Constants) {
 
         /**
          * Indicate that the player want to go somewhere else
-	 * @param {(Integer,Integer)} dest Destination cell in cell coordinates
+         * @param {(Integer,Integer)} dest Destination cell in cell coordinates
          */
         this.setDestination = function(dest) {
             if (this.dest !== null && dest[0] === this.dest[0] && dest[1] === this.dest[1]) {
