@@ -12,40 +12,40 @@ define(["./constants.js", "./army.js", "./log.js"],
             movePoints: Constants.baseMovePoint,
         };
         this.army = new Army(game, map, index, this.stats.movePoints);
-        this.ressources = _.map(Constants.ressourcesMap, _.constant(0));
-        this.growthRate = _.map(Constants.ressourcesMap, _.constant(1));
+        this.resources = _.map(Constants.resourcesMap, _.constant(0));
+        this.growthRate = _.map(Constants.resourcesMap, _.constant(1));
 
         /**
          * return the level of the requested resources
          * @param {Integer/String} what which resources
          */
-        this.getRessource = function(what) {
-            return this.ressources[findRessourceIndex(what)];
+        this.getResource = function(what) {
+            return this.resources[findResourceIndex(what)];
         };
         /**
          * add the specified amount of the requested resource
          * @param {Integer/String} what which resource
          * @param {Integer} howMuch amount to add
          */
-        this.addRessource = function(what, howMuch) {
-            this.ressources[findRessourceIndex(what)] += howMuch;
-            this.drawRessources();
+        this.addResource = function(what, howMuch) {
+            this.resources[findResourceIndex(what)] += howMuch;
+            this.drawResources();
         };
         // TODO add programaticly functions like get/set/add X, where X range
         // through all possible resources names.
 
-        var ressourcesSize = this.ressources.length;
-        var findRessourceIndex = function(what) {
+        var resourcesSize = this.resources.length;
+        var findResourceIndex = function(what) {
             if (_.isNumber(what)) {
                 what = parseInt(what);
             }
             else {
-                Log.assert(Constants.ressourcesMap.hasOwnProperty(what),
-                           what + " is an invalid ressource name");
-                what = Constants.ressourcesMap[what].index;
+                Log.assert(Constants.resourcesMap.hasOwnProperty(what),
+                           what + " is an invalid resource name");
+                what = Constants.resourcesMap[what].index;
             }
-            Log.assert(what >= 0 && what < ressourcesSize,
-                       what + " is not in ressource range");
+            Log.assert(what >= 0 && what < resourcesSize,
+                       what + " is not in resource range");
             return what;
         };
 
@@ -57,8 +57,8 @@ define(["./constants.js", "./army.js", "./log.js"],
         this.startTurn = function() {
             this.army.movePoint = this.stats.movePoints;
             this.army.focusCamera();
-            for (var i = 0, len = this.ressources.length; i < len; i++) {
-                this.addRessource(i, this.growthRate[i]);
+            for (var i = 0, len = this.resources.length; i < len; i++) {
+                this.addResource(i, this.growthRate[i]);
             }
         };
 
@@ -66,17 +66,17 @@ define(["./constants.js", "./army.js", "./log.js"],
          * Draw resources count UI part
          */
         // TODO: find a generic way to handle UI
-        this.drawRessources = function() {
-            var ressourcesUI = document.getElementById('ressources');
+        this.drawResources = function() {
+            var resourcesUI = document.getElementById('resources');
             var label = '<img src="${img}"><span>${val}</span>';
-            var data = _.map(_.zip(this.ressources, _.toArray(Constants.ressourcesMap)),
+            var data = _.map(_.zip(this.resources, _.toArray(Constants.resourcesMap)),
                 function(pair) {
                     return {
                         img: pair[1].icon,
                         val: pair[0]
                     };
                 });
-            ressourcesUI.innerHTML = _.reduce(_.map(data,
+            resourcesUI.innerHTML = _.reduce(_.map(data,
                     function(d) {
                         return _.template(label, d);
                     }),

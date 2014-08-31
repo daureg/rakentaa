@@ -71,7 +71,7 @@ define({
 
     baseMovePoint: 6,
 
-    ressourcesMap: {
+    resourcesMap: {
         "gold": {
             index: 0,
             icon: "../img/coins.png"
