@@ -6,12 +6,18 @@ define(["./constants.js", "./army.js", "./log.js"],
 	* @param {Phaser.Game} game the current Phaser game object
 	* @param {Map.Map} map the current map
 	* @param {Integer} index the number of the corresponding player
+	* @param {String} faction player's faction
     */
-    return function(game, map, index) {
+    return function(game, map, index, faction) {
         this.stats = {
             movePoints: Constants.baseMovePoint,
         };
+        this.faction = faction;
         this.army = new Army(game, map, index, this.stats.movePoints);
+        var army = this.army;
+        _.forOwn(Constants.factions[faction].initialArmy, function(number, unit) {
+            army.addUnits(unit, number);
+        });
         this.resources = _.map(Constants.resourcesMap, _.constant(0));
         this.growthRate = _.map(Constants.resourcesMap, _.constant(1));
 

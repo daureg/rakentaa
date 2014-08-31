@@ -1,7 +1,8 @@
 define(["../scripts/map/map.js", "../scripts/constants.js",
         "../scripts/context.js", "../scripts/log.js",
-        "../scripts/army.js", "../scripts/player.js"],
-        function(Map, Constants, Context, Log, Army, Player) {
+        "../scripts/army.js", "../scripts/player.js",
+        "../scripts/units.js"],
+        function(Map, Constants, Context, Log, Army, Player, Units) {
     var clientWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     var clientHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
@@ -26,6 +27,9 @@ define(["../scripts/map/map.js", "../scripts/constants.js",
         }
         _.forIn(Constants.spritesInfo, function(sprite) {
             game.load.image(sprite.name, sprite.path);});
+        _.forOwn(Units, function(unit, name) {
+            game.load.image(name, unit.sprite);
+        });
     }
 
     /**
@@ -40,8 +44,10 @@ define(["../scripts/map/map.js", "../scripts/constants.js",
         map = new Map(graphics, Constants.mapSize[0], Constants.mapSize[1], Constants.tileSize);
         map.drawRandomMap();
 
+        //TODO: should be chosen by human player at the beginning
+        var tmpFactions = ["goodGuys", "badGuys"];
         for (var i = 0, len = context.NB_PLAYERS; i < len; i++) {
-            players.push(new Player(game, map, i));
+            players.push(new Player(game, map, i, tmpFactions[i]));
         }
 
         game.input.onDown.add(clickDown);

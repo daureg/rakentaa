@@ -82,4 +82,26 @@ define({
         },
     },
 
+    armySize: 6,
+
+    factions: {
+        badGuys: {
+            name: "Bad Guys",
+            icon: "../img/missing.png",
+            bonus: {},
+            initialArmy: {
+                bg_base: 5,
+            },
+        },
+        goodGuys: {
+            name: "Good Guys",
+            icon: "../img/missing.png",
+            bonus: {},
+            initialArmy: {
+                gg_base: 5,
+                gg_healer: 2,
+            },
+        },
+    },
+
 });

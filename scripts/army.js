@@ -1,5 +1,6 @@
 //TODO: Move it to a package when we have different types of armies
-define(["./constants.js"], function(Constants) {
+define(["./constants.js", "./units.js", "./log.js"],
+       function(Constants, Units, Log) {
 	/**
 	* Create a new army
 	* @param {Phaser.Game} game the curren Phaser game object
@@ -19,6 +20,33 @@ define(["./constants.js"], function(Constants) {
         this.dest = null;
         this.pathSprites = game.add.group(undefined, Constants.pathPrefix + index);
         this.lastMoveSize = 0;
+        this.units = {};
+
+        /**
+         * @param {String} what name of the creature to add
+         * @param {Integer} howMuch quantity
+         */
+        this.addUnits = function(what, howMuch) {
+            Log.assert(Units.hasOwnProperty(what), what + " is not a valid unit");
+            if (this.units.hasOwnProperty(what)) {
+                this.units[what] += howMuch;
+                if (this.units[what] <= 0) {
+                    delete this.units[what];
+                }
+            }
+            else {
+                has_room = _.size(this.units) < Constants.armySize;
+                is_positive = howMuch > 0;
+                if (has_room && is_positive) {
+                    this.units[what] = howMuch;
+                }
+            }
+            this.drawUnits();
+        };
+        this.drawUnits = function() {
+            //TODO do it for real when we decide on UI
+            Log.info(this.units);
+        };
 
         /**
          * Indicate that the player want to go somewhere else
