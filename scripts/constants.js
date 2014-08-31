@@ -1,3 +1,25 @@
+var spritesInfo = {
+    baseStructure: {
+        name: "baseStructure",
+        path: "../img/structures/base.png"
+    },
+    neutralseStructure: {
+        name: "neutralseStructure",
+        path: "../img/structures/neutral.png"
+    },
+    pathMarker: {
+        name: "pathMarker",
+        path: "../img/missing.png"
+    },
+    redArmy: {
+        name: "redArmy",
+        path: "../img/red-flag.png"
+    },
+    blueArmy: {
+        name: "blueArmy",
+        path: "../img/blue-flag.png"
+    },
+};
 define({
     mapSize: [32, 32],
     tileSize: 64,
@@ -31,28 +53,23 @@ define({
     // pressed.
     mapSpeed: 8,
 
-    spritesInfo: {
-        baseStructure: {
-            name: "baseStructure",
-            path: "../img/structures/base.png"
-        },
-        neutralseStructure: {
-            name: "neutralseStructure",
-            path: "../img/structures/neutral.png"
-        },
-        pathMarker: {
-            name: "pathMarker",
-            path: "../img/missing.png"
-        },
-        redArmy: {
-            name: "redArmy",
-            path: "../img/red-flag.png"
-        },
-        blueArmy: {
-            name: "blueArmy",
-            path: "../img/blue-flag.png"
-        },
-    },
+    spritesInfo: _.cloneDeep(spritesInfo),
+
+    // I miss python:
+    // Names = [name for name, _ in spritesInfo if name.endswith('Army')]
+    playersName: _.map(
+        // get only army sprite
+        _.filter(spritesInfo, function(sprite) {
+            return sprite.name.match(/Army$/) !== null;
+        }),
+        // get their name
+        function(sprite) {
+            return sprite.name;
+        }),
+
+    pathPrefix: 'path_',
+
+    baseMovePoint: 6,
 
     ressourcesMap: {
         "gold": {

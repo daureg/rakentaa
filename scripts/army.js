@@ -1,25 +1,28 @@
-//CR #8 Should be in a package since we might have different types of armies
+//TODO: Move it to a package when we have different types of armies
 define(["./constants.js"], function(Constants) {
-    //CR #8 Document the class constructor & parameters
-    return function(game, map, index) {
-        //CR #8 Hardcoded values > constants
-        this.movePoint = 6;
-        //CR #8 Move initial positions to constants (can be used for base structures)
+	/**
+	* Create a new army
+	* @param {Phaser.Game} game the curren Phaser game object
+	* @param {Map.Map} map the current map
+	* @param {Integer} index the number of the corresponding player
+	* @param {Integer} movePoint how much cell can be travelled in one turn
+	*/
+    return function(game, map, index, movePoint) {
+        this.movePoint = movePoint;
+        //TODO: read initial position from the map itself?
         // this.mapPos = [_.random(Constants.mapSize[0]), _.random(Constants.mapSize[1])]
         this.mapPos = [3 + index, 1 + index];
-        //CR #8 Hardcoded names > constants
-        this.name = ['redArmy', 'blueArmy'][index];
+        this.name = Constants.playersName[index];
         var worldPos = map.cellIndexToWorldCoords(this.mapPos);
         this.sprite = game.add.sprite(worldPos[0], worldPos[1], Constants.spritesInfo[this.name].name);
         this.sprite.anchor.setTo(0.5, 0.5);
         this.dest = null;
-        //CR #8 Hardcoded prefix > constants
-        this.pathSprites = game.add.group(undefined, "path_" + index);
+        this.pathSprites = game.add.group(undefined, Constants.pathPrefix + index);
         this.lastMoveSize = 0;
 
-        //CR #8 Document the parameter with @param
         /**
-         * Indicate that the player want to go there
+         * Indicate that the player want to go somewhere else
+	 * @param {(Integer,Integer)} dest Destination cell in cell coordinates
          */
         this.setDestination = function(dest) {
             if (this.dest !== null && dest[0] === this.dest[0] && dest[1] === this.dest[1]) {
