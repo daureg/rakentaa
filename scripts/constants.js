@@ -3,8 +3,8 @@ var spritesInfo = {
         name: "baseStructure",
         path: "../img/structures/base.png"
     },
-    neutralseStructure: {
-        name: "neutralseStructure",
+    neutralStructure: {
+        name: "neutralStructure",
         path: "../img/structures/neutral.png"
     },
     pathMarker: {
@@ -20,6 +20,7 @@ var spritesInfo = {
         path: "../img/blue-flag.png"
     },
 };
+
 define({
     mapSize: [32, 32],
     tileSize: 64,
@@ -103,5 +104,7 @@ define({
             },
         },
     },
+    
+    numberOfNeutralStructures: 12
 
 });

@@ -1,12 +1,12 @@
 //TODO: Move it to a package when we have different types of players
 define(["./constants.js", "./army.js", "./log.js"],
        function(Constants, Army, Log) {
-	/**
-	* Create a new player
-	* @param {Phaser.Game} game the current Phaser game object
-	* @param {Map.Map} map the current map
-	* @param {Integer} index the number of the corresponding player
-	* @param {String} faction player's faction
+    /**
+    * Create a new player
+    * @param {Phaser.Game} game the current Phaser game object
+    * @param {Map.Map} map the current map
+    * @param {Integer} index the number of the corresponding player
+    * @param {String} faction player's faction
     */
     return function(game, map, index, faction) {
         this.stats = {
