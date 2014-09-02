@@ -7,6 +7,8 @@ define(function() {
         this.type = type;
         this.position = position;
 
+        this.sprite = null;
+
         if (options) {
             if (options.structure) {
                 this.structure = new options.structure(game, position, options.structureOptions);

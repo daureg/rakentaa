@@ -1,4 +1,4 @@
-define(["../constants.js", "./mapTile.js", "../structures/baseStructure.js", "../structures/neutralStructure.js", "../log.js"],
+define(["constants", "map/mapTile", "structure/baseStructure", "structure/neutralStructure", "log"],
     function(Constants, MapTile, BaseStructure, NeutralStructure, Log) {
         /**
          * Map constructor

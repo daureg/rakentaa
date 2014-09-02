@@ -1,4 +1,4 @@
-define(["./constants.js"], function(Constants) {
+define(["constants"], function(Constants) {
     return {
         bg_base: {
             name: "Simple virus",

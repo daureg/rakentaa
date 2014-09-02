@@ -1,4 +1,4 @@
-define([], function() {
+define(function() {
     return function(options) {
         this.DEBUG = options.debug || false;
         this.TURN = -1;

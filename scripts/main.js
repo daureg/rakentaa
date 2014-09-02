@@ -1,8 +1,4 @@
-define(["../scripts/map/map.js", "../scripts/constants.js",
-        "../scripts/context.js", "../scripts/log.js",
-        "../scripts/army.js", "../scripts/player.js",
-        "../scripts/units.js"
-    ],
+define(["map/map", "constants", "context", "log", "army", "player", "units"],
     function(Map, Constants, Context, Log, Army, Player, Units) {
         var clientWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
         var clientHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
@@ -17,8 +13,8 @@ define(["../scripts/map/map.js", "../scripts/constants.js",
             render: render
         });
 
-        var graphics, map, cursors;
-        var previousCameraPosition;
+        var map, cursors;
+
         var players = [];
 
         /**

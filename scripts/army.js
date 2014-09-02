@@ -1,5 +1,5 @@
 //TODO: Move it to a package when we have different types of armies
-define(["./constants.js", "./units.js", "./map/map.js", "./log.js"],
+define(["constants", "units", "map/map", "log"],
     function(Constants, Units, Map, Log) {
         /**
          * Create a new army

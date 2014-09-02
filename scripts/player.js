@@ -1,5 +1,5 @@
 //TODO: Move it to a package when we have different types of players
-define(["./constants.js", "./army.js", "./log.js"],
+define(["constants", "army", "log"],
        function(Constants, Army, Log) {
     /**
     * Create a new player
