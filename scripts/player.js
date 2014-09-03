@@ -63,6 +63,7 @@ define(["constants", "army", "log"],
         this.startTurn = function() {
             this.army.movePoint = this.stats.movePoints;
             this.army.focusCamera();
+            this.army.drawUnits();
             for (var i = 0, len = this.resources.length; i < len; i++) {
                 this.addResource(i, this.growthRate[i]);
             }

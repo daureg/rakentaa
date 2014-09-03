@@ -46,10 +46,22 @@ define(["constants", "units", "map/map", "log"],
                 this.drawUnits();
             };
             this.drawUnits = function() {
-                //TODO do it for real when we decide on UI
-                Log.info(this.units);
+                this.drawUnits();
             };
-
+            this.drawUnits = function() {
+                var displayUnit = function(count, name) {
+                    var unit = Units[name];
+                    return m('li', [
+                        m('img', {src: unit.icon, title: unit.name}),
+                        m('span', count)
+                    ]);
+                };
+                m.render(document.getElementById('ui'),
+                         m('#army', [
+                             m('ul', _.map(this.units, displayUnit))
+                         ])
+                );
+            };
             /**
              * Indicate that the player want to go somewhere else
              * @param {Object} dest Destination cell in cell coordinates
