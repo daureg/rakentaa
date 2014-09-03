@@ -42,6 +42,7 @@ define(["map/map", "constants", "context", "log", "army", "player", "units"],
             game.world.setBounds(0, 0, Constants.mapSize[0] * Constants.tileSize, Constants.mapSize[1] * Constants.tileSize);
             map = new Map(this.game, Constants.mapSize[0], Constants.mapSize[1], Constants.tileSize);
             map.drawRandomMap();
+            resize(0.8, 1.0);
 
             //TODO: should be chosen by human player at the beginning
             var tmpFactions = ["goodGuys", "badGuys"];
@@ -107,5 +108,18 @@ define(["map/map", "constants", "context", "log", "army", "player", "units"],
         function nextTurn() {
             context.TURN++;
             players[current_player()].startTurn();
+        }
+
+        /*
+         * Resize the canvas
+         * @param {Float} wFraction fraction of the width of the window (<1.0)
+         * @param {Float} hFraction fraction of the height of the window (<1.0)
+         */
+        function resize(wFraction, hFraction) {
+            var w = parseInt(wFraction*clientWidth),
+                h = parseInt(hFraction*clientHeight);
+            game.renderer.resize(w, h);
+            game.camera.setSize(w, h);
+            document.getElementById('ui').style.width = (1-wFraction)*100 + '%';
         }
     });

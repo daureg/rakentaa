@@ -15,3 +15,12 @@
     vertical-align: middle;
     margin: 0 10px 0 30px;
 }
+#ui {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 20%;
+    z-index: 0;
+    background: #F9FCF9;
+}
