@@ -51,9 +51,7 @@ resource.controller = function(target) {
     };
     this.amount.toJSON = function() {return amount;};
     this.type = m.prop("");
-    this.draw = function() {
-        m.render(target, resource.view(this), true);
-    };
+    this.draw = function() {m.render(target, resource.view(this), true);};
     // create initial resources
     _.map(resourcesMap, function initResource(res, name) {
         self.list.push(new resource.Resource({
@@ -123,4 +121,4 @@ resource.view = function(ctrl) {
 
 // Or do it by hand like a real man
 var target = document.getElementById('resources');
-var RESOURCE = new resource.controller(target);
+// var RESOURCE = new resource.controller(target);

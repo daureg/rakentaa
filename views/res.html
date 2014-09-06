@@ -1,5 +1,31 @@
 <!doctype html>
 <script src="../lib/mithril.min.js"></script>
 <script src="../lib/lodash.min.js"></script>
+<link rel="stylesheet" href="res.css" type="text/css" media="all" />
 <div id="resources"></div>
+<div id="creatures"></div>
+</div>
 <script src="res.js"></script>
+<script src="creatures.js"></script>
+<script src="factor.js"></script>
+<div class="dialog recruiting">
+    <h1>Recruit “Simple Virus”</h1>
+    <div>
+        <img src="../img/worm_large.png">
+        <table border="0">
+                <tr><td>Life:</td> <td> 5</td> </tr>
+                <tr><td>Attack:</td> <td> 13</td> </tr>
+        </table>
+        <div class="buying">
+            <span>5</span>
+            <input type="range" min="0" max="10">
+            <ul>
+                <li> <img src="../img/coins.png" title="gold"> <span class="amount"> 1500</span> </li>
+                <li> <img src="../img/diamonds.png" title="gems"> <span class="amount"> 500</span> </li>
+            </ul>
+        </div>
+        <button type="button">Cancel</button>
+        <button type="button">Buy</button>
+    </div>
+</div>
+<div class="ui-widget-overlay ui-front"></div>
