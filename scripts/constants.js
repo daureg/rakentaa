@@ -58,15 +58,13 @@ define({
 
     // I miss python:
     // Names = [name for name, _ in spritesInfo if name.endswith('Army')]
-    playersName: _.map(
+    playersName: _.pluck(
         // get only army sprite
-        _.filter(spritesInfo, function(sprite) {
+        _.filter(spritesInfo, function isArmy(sprite) {
             return sprite.name.match(/Army$/) !== null;
         }),
         // get their name
-        function(sprite) {
-            return sprite.name;
-        }),
+        "name"),
 
     pathPrefix: 'path_',
 
