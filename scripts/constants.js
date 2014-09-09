@@ -21,6 +21,14 @@ var spritesInfo = {
     },
 };
 
+var resourcesNames = {
+    RS_BASE_0: "gold",
+    RS_COMMON_0: "wood",
+    RS_COMMON_1: "stone",
+    RS_RARE_0: "diamond",
+    RS_RARE_1: "gems",
+};
+
 define({
     mapSize: [32, 32],
     tileSize: 64,
@@ -70,14 +78,20 @@ define({
 
     baseMovePoint: 6,
 
+    resourcesNames: _.cloneDeep(resourcesNames),
+
     resourcesMap: {
-        "gold": {
+        RS_BASE_0: {
             index: 0,
-            icon: "../img/coins.png"
+            icon: "../img/coins.png",
+            type: "gold",
+            name: "Gold",
         },
-        "gems": {
+        RS_RARE_0: {
             index: 1,
-            icon: "../img/diamonds.png"
+            icon: "../img/diamonds.png",
+            type: "diamond",
+            name: "Diamond",
         },
     },
 
