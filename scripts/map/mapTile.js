@@ -13,13 +13,7 @@ define(["game", "constants", "utils"], function(Game, Constants, Utils) {
 
         gameInstance.addCreateHandler({
             handler: function() {
-                if(!MapTile.graphics){
-                    MapTile.graphics = gameInstance.game.add.graphics(0, 0);
-                }
-                //This is not documented in Phaser API, somewhat inherited from Pixi.js engine
-                MapTile.graphics.lineStyle(this.type.strokeSize, this.type.strokeColor);
-                MapTile.graphics.beginFill(this.type.fillColor);
-                MapTile.graphics.drawRect(this.mapPosition.x * Constants.tileSize, this.mapPosition.y * Constants.tileSize, Constants.tileSize, Constants.tileSize);
+                this.sprite = gameInstance.game.add.sprite(this.mapPosition.x * Constants.tileSize, this.mapPosition.y * Constants.tileSize, this.type.spriteName);
             },
             scope: this
         });

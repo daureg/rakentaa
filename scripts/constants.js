@@ -19,6 +19,18 @@ var spritesInfo = {
         name: "blueArmy",
         path: "../img/blue-flag.png"
     },
+    networkNode:{
+        name: "networkNode",
+        path: "../img/map/blue.png"
+    },
+    firewallNode:{
+        name: "firewallNode",
+        path: "../img/map/orange.png"
+    },
+    terminalNode:{
+        name: "terminalNode",
+        path: "../img/map/green.png"
+    }
 };
 
 define({
@@ -35,22 +47,16 @@ define({
     mapTileTypes: [{
         typeId: 0,
         typeName: "Network Node",
-        fillColor: 0x0000FF,
-        strokeColor: 0x000000,
-        strokeSize: 2
+        spriteName: "networkNode"
 
     }, {
         typeId: 1,
         typeName: "Firewall",
-        fillColor: 0xFF0000,
-        strokeColor: 0x000000,
-        strokeSize: 2
+        spriteName: "firewallNode"
     }, {
         typeId: 2,
         typeName: "Terminal",
-        fillColor: 0x00FF00,
-        strokeColor: 0x000000,
-        strokeSize: 2
+        spriteName: "terminalNode"
     }],
 
     // by how much (in world coordinates) the camera move everytime a key is
