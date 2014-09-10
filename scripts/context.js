@@ -1,4 +1,4 @@
-define(["player", "game", "map/map", "log"], function(Player, Game, Map, Log) {
+define(["player", "game", "map/map", "log", "Utils"], function(Player, Game, Map, Log, Utils) {
     function Context(options) {
         this.debug = options.debug || false;
         this.turnCounter = -1;
@@ -46,7 +46,7 @@ define(["player", "game", "map/map", "log"], function(Player, Game, Map, Log) {
 
 
         function clickDown(pointer) {
-            var cell = map.worldCoordsToCellIndex(pointer.worldX, pointer.worldY);
+            var cell = Utils.worldCoordsToCellIndex(pointer.worldX, pointer.worldY);
             this.getCurrentPlayer().army.setDestination(cell);
         }
 

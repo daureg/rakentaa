@@ -1,22 +1,16 @@
-define(["constants", "map/mapTile", "structure/baseStructure", "structure/neutralStructure", "log", "game"],
-    function(Constants, MapTile, BaseStructure, NeutralStructure, Log, Game) {
+define(["constants", "map/mapTile", "structure/baseStructure", "structure/neutralStructure", "log", "game", "utils"],
+    function(Constants, MapTile, BaseStructure, NeutralStructure, Log, Game, Utils) {
         /**
          * Map constructor
          */
         function Map() {
-            this.width = Constants.mapSize.w;
-            this.tileSize = Constants.tileSize;
-            this.height = Constants.mapSize.h;
             this.tiles = [];
-
             var gameInstance = Game.getInstance();
             var game = gameInstance.game;
 
             gameInstance.addCreateHandler({
                 handler: function() {
                     game.world.setBounds(0, 0, Constants.mapSize.w * Constants.tileSize, Constants.mapSize.h * Constants.tileSize);
-                    var graphics = game.add.graphics(0, 0);
-                    this.drawRandomMap(graphics);
                 },
                 scope: this
             });
@@ -24,28 +18,30 @@ define(["constants", "map/mapTile", "structure/baseStructure", "structure/neutra
             /**
              * Draws a randomly generated map on the canvas
              */
-            this.drawRandomMap = function(graphics) {
+            this.drawRandomMap = function drawRandomMap() {
                 this.tiles = [];
                 var row, randomTypeIndex, randomHasStructureIndex, currentTile;
                 var structureCounter = Constants.numberOfNeutralStructures;
-                for (var i = 0; i < this.height; i++) {
+                for (var i = 0; i < Constants.mapSize.h; i++) {
                     row = [];
-                    for (var j = 0; j < this.width; j++) {
+                    for (var j = 0; j < Constants.mapSize.w; j++) {
                         randomTypeIndex = Math.floor((Math.random() * Constants.mapTileTypes.length));
                         randomHasStructureIndex = structureCounter > 0 && Math.random() < 0.3;
                         if (randomHasStructureIndex) {
-                            currentTile = new MapTile(Constants.mapTileTypes[randomTypeIndex], this.cellIndexToWorldCoords(j, i), {
+                            currentTile = new MapTile(Constants.mapTileTypes[randomTypeIndex], {
+                                x: j,
+                                y: i
+                            }, {
                                 structure: NeutralStructure
                             });
                             structureCounter--;
                         } else {
-                            currentTile = new MapTile(Constants.mapTileTypes[randomTypeIndex], this.cellIndexToWorldCoords(j, i));
+                            currentTile = new MapTile(Constants.mapTileTypes[randomTypeIndex], {
+                                x: j,
+                                y: i
+                            });
                         }
                         row.push(currentTile);
-                        //This is not documented in Phaser API, somewhat inherited from Pixi.js engine
-                        graphics.lineStyle(currentTile.type.strokeSize, currentTile.type.strokeColor);
-                        graphics.beginFill(currentTile.type.fillColor);
-                        graphics.drawRect(j * this.tileSize, i * this.tileSize, this.tileSize, this.tileSize);
                     }
                     this.tiles.push(row);
                 }
@@ -61,40 +57,13 @@ define(["constants", "map/mapTile", "structure/baseStructure", "structure/neutra
                 return true;
             };
 
-            this.isCellInsideMap = function(cellX, cellY) {
-                return cellX >= 0 && cellX <= this.width && cellY >= 0 && cellY <= this.height;
-            };
-
-            /**
-             * Return the world coordinates of the center of a given cell
-             * @param {Object} cellCoords
-             * @returns {Object}
-             */
-            this.cellIndexToWorldCoords = function(cellX, cellY) {
-                Log.assert(this.isCellInsideMap(cellX, cellY), "Cell out of bounds");
-                return {
-                    x: parseInt((cellX + 0.5) * this.tileSize),
-                    y: parseInt((cellY + 0.5) * this.tileSize)
-                };
-            };
-
-            /**
-             * Return the cell index in which the `worldCoords` falls.
-             */
-            this.worldCoordsToCellIndex = function(x, y) {
-                return {
-                    x: Math.floor(x / this.tileSize),
-                    y: Math.floor(y / this.tileSize)
-                };
-            };
-
             /**
              * Return a list of cell coordinates forming a valid path between
              * startPoint and endPoint.
              */
             this.findPath = function(startPoint, endPoint) {
-                Log.assert(this.isCellInsideMap(startPoint.x, startPoint.y), "Cell out of bounds");
-                Log.assert(this.isCellInsideMap(endPoint.x, endPoint.y), "Cell out of bounds");
+                Log.assert(Utils.isCellInsideMap(startPoint.x, startPoint.y), "Cell out of bounds");
+                Log.assert(Utils.isCellInsideMap(endPoint.x, endPoint.y), "Cell out of bounds");
                 var sx = startPoint.x,
                     sy = startPoint.y,
                     ex = endPoint.x,
@@ -133,6 +102,8 @@ define(["constants", "map/mapTile", "structure/baseStructure", "structure/neutra
                 });
                 return ray;
             };
+
+            this.drawRandomMap();
         }
 
         var instance = null;

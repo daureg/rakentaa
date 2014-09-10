@@ -1,6 +1,6 @@
 //TODO: Move it to a package when we have different types of armies
-define(["constants", "units", "log", "game", "map/map"],
-    function(Constants, Units, Log, Game, Map) {
+define(["constants", "units", "log", "game", "map/map", "utils"],
+    function(Constants, Units, Log, Game, Map, Utils) {
         /**
          * Create a new army
          * @param {Integer} index the number of the corresponding player
@@ -24,7 +24,7 @@ define(["constants", "units", "log", "game", "map/map"],
             var gameInstance = Game.getInstance();
             var game = gameInstance.game;
             var map = Map.getInstance();
-            var worldPos = map.cellIndexToWorldCoords(this.mapPos.x, this.mapPos.y);
+            var worldPos = Utils.cellIndexToWorldCoords(this.mapPos.x, this.mapPos.y);
 
             gameInstance.addCreateHandler({
                 handler: function() {
@@ -73,7 +73,7 @@ define(["constants", "units", "log", "game", "map/map"],
                 this.dest = _.clone(path[length]);
                 this.pathSprites.removeAll();
                 for (var i = 1; i <= length; i++) {
-                    var c = map.cellIndexToWorldCoords(path[i].x, path[i].y);
+                    var c = Utils.cellIndexToWorldCoords(path[i].x, path[i].y);
                     var s = game.add.sprite(c.x, c.y, Constants.spritesInfo.pathMarker.name);
                     s.anchor.setTo(0.5, 0.5);
                     this.pathSprites.add(s);
@@ -85,7 +85,7 @@ define(["constants", "units", "log", "game", "map/map"],
              * Actually move to the set destination
              */
             this.moveToCell = function() {
-                var mapDest = map.cellIndexToWorldCoords(this.dest.x, this.dest.y);
+                var mapDest = Utils.cellIndexToWorldCoords(this.dest.x, this.dest.y);
                 this.sprite.x = mapDest.x;
                 this.sprite.y = mapDest.y;
                 this.mapPos = _.clone(this.dest);
@@ -100,7 +100,7 @@ define(["constants", "units", "log", "game", "map/map"],
              * Center the camera on this army
              */
             this.focusCamera = function() {
-                var worldPos = map.cellIndexToWorldCoords(this.mapPos.x, this.mapPos.y);
+                var worldPos = Utils.cellIndexToWorldCoords(this.mapPos.x, this.mapPos.y);
                 game.camera.focusOnXY(worldPos.x, worldPos.y);
             };
         };
