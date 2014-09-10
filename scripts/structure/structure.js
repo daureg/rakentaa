@@ -1,6 +1,15 @@
-define(function() {
-    return function(game, worldPos, spriteName, options) {
+define(["game"], function(Game) {
+    return function(worldPos, spriteName, options) {
         this.worldPos = worldPos;
-        this.sprite = game.add.sprite(this.worldPos.x, this.worldPos.y, spriteName);
+        var gameInstance = Game.getInstance();
+        var game = gameInstance.game;
+
+        gameInstance.addCreateHandler({
+            handler: function() {
+                this.sprite = game.add.sprite(this.worldPos.x, this.worldPos.y, spriteName);
+            },
+            scope: this
+        });
+
     };
 });

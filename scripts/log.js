@@ -4,7 +4,7 @@ define({
      * @param {String} message the message to log
      */
     log: function(message) {
-        if (console && console.log) {
+        if (window.console && console.log) {
             console.log(message);
         }
     },
@@ -13,7 +13,7 @@ define({
      * @param {String} message the error message to log
      */
     error: function(message) {
-        if (console && console.error) {
+        if (window.console && console.error) {
             console.error(message);
         }
     },
@@ -22,12 +22,12 @@ define({
      * @param {String} message the info message to log
      */
     info: function(message) {
-        if (console && console.info) {
+        if (window.console && console.info) {
             console.info(message);
         }
     },
     assert: function(condition, message) {
-        if (console && console.assert) {
+        if (window.console && console.assert) {
             console.assert(condition, message);
         }
     }

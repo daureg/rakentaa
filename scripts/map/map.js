@@ -1,24 +1,30 @@
-define(["constants", "map/mapTile", "structure/baseStructure", "structure/neutralStructure", "log"],
-    function(Constants, MapTile, BaseStructure, NeutralStructure, Log) {
+define(["constants", "map/mapTile", "structure/baseStructure", "structure/neutralStructure", "log", "game"],
+    function(Constants, MapTile, BaseStructure, NeutralStructure, Log, Game) {
         /**
          * Map constructor
-         * @param {Phaser.Game} game the game object
-         * @param {Integer} width the width of the map in number of tiles
-         * @param {Integer} height the height of the map in number of tiles
-         * @param {Integer} tileSize size of a single tile in pixels
          */
-        function Map(game, width, height, tileSize, options) {
-            this.width = width;
-            this.tileSize = tileSize;
-            this.height = height;
+        function Map() {
+            this.width = Constants.mapSize.w;
+            this.tileSize = Constants.tileSize;
+            this.height = Constants.mapSize.h;
             this.tiles = [];
 
-            var graphics = game.add.graphics(0, 0);
+            var gameInstance = Game.getInstance();
+            var game = gameInstance.game;
+
+            gameInstance.addCreateHandler({
+                handler: function() {
+                    game.world.setBounds(0, 0, Constants.mapSize.w * Constants.tileSize, Constants.mapSize.h * Constants.tileSize);
+                    var graphics = game.add.graphics(0, 0);
+                    this.drawRandomMap(graphics);
+                },
+                scope: this
+            });
 
             /**
              * Draws a randomly generated map on the canvas
              */
-            this.drawRandomMap = function() {
+            this.drawRandomMap = function(graphics) {
                 this.tiles = [];
                 var row, randomTypeIndex, randomHasStructureIndex, currentTile;
                 var structureCounter = Constants.numberOfNeutralStructures;
@@ -28,12 +34,12 @@ define(["constants", "map/mapTile", "structure/baseStructure", "structure/neutra
                         randomTypeIndex = Math.floor((Math.random() * Constants.mapTileTypes.length));
                         randomHasStructureIndex = structureCounter > 0 && Math.random() < 0.3;
                         if (randomHasStructureIndex) {
-                            currentTile = new MapTile(game, Constants.mapTileTypes[randomTypeIndex], this.cellIndexToWorldCoords(j, i), {
+                            currentTile = new MapTile(Constants.mapTileTypes[randomTypeIndex], this.cellIndexToWorldCoords(j, i), {
                                 structure: NeutralStructure
                             });
                             structureCounter--;
                         } else {
-                            currentTile = new MapTile(game, Constants.mapTileTypes[randomTypeIndex], this.cellIndexToWorldCoords(j, i));
+                            currentTile = new MapTile(Constants.mapTileTypes[randomTypeIndex], this.cellIndexToWorldCoords(j, i));
                         }
                         row.push(currentTile);
                         //This is not documented in Phaser API, somewhat inherited from Pixi.js engine
@@ -129,5 +135,15 @@ define(["constants", "map/mapTile", "structure/baseStructure", "structure/neutra
             };
         }
 
-        return Map;
+        var instance = null;
+
+        return {
+            getInstance: function() {
+                if (instance === null) {
+                    instance = new Map();
+                }
+                return instance;
+            }
+        };
+
     });

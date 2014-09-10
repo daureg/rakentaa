@@ -1,29 +1,39 @@
 //TODO: Move it to a package when we have different types of armies
-define(["constants", "units", "map/map", "log"],
-    function(Constants, Units, Map, Log) {
+define(["constants", "units", "log", "game", "map/map"],
+    function(Constants, Units, Log, Game, Map) {
         /**
          * Create a new army
-         * @param {Phaser.Game} game the curren Phaser game object
-         * @param {Map.Map} map the current map
          * @param {Integer} index the number of the corresponding player
          * @param {Integer} movePoint how much cell can be travelled in one turn
          */
-        return function(game, map, index, movePoint) {
+        return function(index, movePoint) {
+            this.dest = null;
+            this.lastMoveSize = 0;
+            this.units = {};
+            this.sprite = null;
+            this.pathSprites = null;
             this.movePoint = movePoint;
             //TODO: read initial position from the map itself?
-            // this.mapPos = [_.random(Constants.mapSize[0]), _.random(Constants.mapSize[1])]
+            // this.mapPos = [_.random(Constants.mapSize.w), _.random(Constants.mapSize.h)]
             this.mapPos = {
                 x: 3 + index,
                 y: 1 + index
             };
             this.name = Constants.playersName[index];
+
+            var gameInstance = Game.getInstance();
+            var game = gameInstance.game;
+            var map = Map.getInstance();
             var worldPos = map.cellIndexToWorldCoords(this.mapPos.x, this.mapPos.y);
-            this.sprite = game.add.sprite(worldPos.x, worldPos.y, Constants.spritesInfo[this.name].name);
-            this.sprite.anchor.setTo(0.5, 0.5);
-            this.dest = null;
-            this.pathSprites = game.add.group(undefined, Constants.pathPrefix + index);
-            this.lastMoveSize = 0;
-            this.units = {};
+
+            gameInstance.addCreateHandler({
+                handler: function() {
+                    this.sprite = game.add.sprite(worldPos.x, worldPos.y, Constants.spritesInfo[this.name].name);
+                    this.sprite.anchor.setTo(0.5, 0.5);
+                    this.pathSprites = game.add.group(undefined, Constants.pathPrefix + index);
+                },
+                scope: this
+            });
 
             /**
              * @param {String} what name of the creature to add

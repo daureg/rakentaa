@@ -22,7 +22,10 @@ var spritesInfo = {
 };
 
 define({
-    mapSize: [32, 32],
+    mapSize: {
+        w: 32,
+        h: 32
+    },
     tileSize: 64,
 
     /**
@@ -102,7 +105,7 @@ define({
             },
         },
     },
-    
+
     numberOfNeutralStructures: 12
 
 });

@@ -1,5 +1,5 @@
 define(["structure/structure", "constants"], function(Structure, Constants) {
-    return function(game, position, options) {
-        this.prototype = new Structure(game, position, Constants.spritesInfo.neutralStructure.name, options);
+    return function(position, options) {
+        this.prototype = new Structure(position, Constants.spritesInfo.neutralStructure.name, options);
     };
 });
