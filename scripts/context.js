@@ -1,4 +1,4 @@
-define(["player", "game", "map/map", "log", "Utils"], function(Player, Game, Map, Log, Utils) {
+define(["player", "game", "map/map", "log", "utils"], function(Player, Game, Map, Log, Utils) {
     function Context(options) {
         this.debug = options.debug || false;
         this.turnCounter = -1;
