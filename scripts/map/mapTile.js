@@ -21,7 +21,10 @@ define(["game", "constants", "utils"], function(Game, Constants, Utils) {
 
         if (options) {
             if (options.structure) {
-                this.structure = new options.structure(Utils.cellIndexToWorldCoords(this.mapPosition.x, this.mapPosition.y), options.structureOptions);
+                this.structure = new
+                options.structure(Utils.cellIndexToWorldCoords(this.mapPosition.x,
+                                                               this.mapPosition.y),
+                                  options.structureOptions, options.batch);
             }
         }
 

@@ -1,5 +1,11 @@
 define(["game"], function(Game) {
-    return function(worldPos, spriteName, options) {
+    /**
+     * Create a structure on the map
+     * @param {Object} worldPos (x,y) coordinates
+     * @param {String} spriteName
+     * @param {Object} options type of structure + SpriteBatch
+     */
+    return function(worldPos, spriteName, options, batch) {
         this.spriteName = spriteName;
         this.sprite = null;
         this.worldPos = worldPos;
@@ -8,8 +14,9 @@ define(["game"], function(Game) {
 
         gameInstance.addCreateHandler({
             handler: function() {
-                this.sprite = game.add.sprite(this.worldPos.x, this.worldPos.y, this.spriteName);
+                this.sprite = new Phaser.Sprite(game, this.worldPos.x, this.worldPos.y, this.spriteName);
                 this.sprite.anchor.setTo(0.5, 0.5);
+                batch.add(this.sprite);
             },
             scope: this
         });

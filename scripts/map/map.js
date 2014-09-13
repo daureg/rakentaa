@@ -7,6 +7,7 @@ define(["constants", "map/mapTile", "structure/baseStructure", "structure/neutra
             this.tiles = [];
             var gameInstance = Game.getInstance();
             var game = gameInstance.game;
+            var neutralSpritesBatch = game.add.spriteBatch(null, "NeutralStructure", true);
 
             gameInstance.addCreateHandler({
                 handler: function() {
@@ -20,19 +21,20 @@ define(["constants", "map/mapTile", "structure/baseStructure", "structure/neutra
              */
             this.drawRandomMap = function drawRandomMap() {
                 this.tiles = [];
-                var row, randomTypeIndex, randomHasStructureIndex, currentTile;
+                var row, randomTypeIndex, randomHasStructure, currentTile;
                 var structureCounter = Constants.numberOfNeutralStructures;
                 for (var i = 0; i < Constants.mapSize.h; i++) {
                     row = [];
                     for (var j = 0; j < Constants.mapSize.w; j++) {
                         randomTypeIndex = Math.floor((Math.random() * Constants.mapTileTypes.length));
-                        randomHasStructureIndex = structureCounter > 0 && Math.random() < 0.3;
-                        if (randomHasStructureIndex) {
+                        randomHasStructure = structureCounter > 0 && Math.random() < 0.3;
+                        if (randomHasStructure) {
                             currentTile = new MapTile(Constants.mapTileTypes[randomTypeIndex], {
                                 x: j,
                                 y: i
                             }, {
-                                structure: NeutralStructure
+                                structure: NeutralStructure,
+                                batch: neutralSpritesBatch,
                             });
                             structureCounter--;
                         } else {
