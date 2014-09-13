@@ -9,6 +9,7 @@ define(["game"], function(Game) {
         gameInstance.addCreateHandler({
             handler: function() {
                 this.sprite = game.add.sprite(this.worldPos.x, this.worldPos.y, this.spriteName);
+                this.sprite.anchor.setTo(0.5, 0.5);
             },
             scope: this
         });
