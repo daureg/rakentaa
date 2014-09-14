@@ -47,9 +47,9 @@ define(["constants", "units", "log", "game", "map/map", "utils"],
                         delete this.units[what];
                     }
                 } else {
-                    var has_room = _.size(this.units) < Constants.armySize;
-                    var is_positive = howMuch > 0;
-                    if (has_room && is_positive) {
+                    var hasRoom = _.size(this.units) < Constants.armySize;
+                    var isPositive = howMuch > 0;
+                    if (hasRoom && isPositive) {
                         this.units[what] = howMuch;
                     }
                 }
