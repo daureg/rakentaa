@@ -5,6 +5,7 @@ define(["player", "game", "map/map", "log", "utils"], function(Player, Game, Map
         this.playerNumber = 2;
         this.players = [];
 
+        //TODO: factions should be chosen by human players at the beginning
         var tmpFactions = ["goodGuys", "badGuys"];
         for (var i = 0, len = this.playerNumber; i < len; i++) {
             this.players.push(new Player(i, tmpFactions[i]));
@@ -25,7 +26,6 @@ define(["player", "game", "map/map", "log", "utils"], function(Player, Game, Map
 
         gameInstance.addCreateHandler({
             handler: function() {
-                //TODO: should be chosen by human player at the beginning
                 game.input.onDown.add(clickDown, this);
                 var spacebar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
                 spacebar.onUp.add(this.nextTurn, this);
