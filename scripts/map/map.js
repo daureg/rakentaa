@@ -7,7 +7,6 @@ define(["constants", "map/mapTile", "structure/baseStructure", "structure/neutra
             this.tiles = [];
             var gameInstance = Game.getInstance();
             var game = gameInstance.game;
-            var neutralSpritesBatch = game.add.spriteBatch(null, "NeutralStructure", true);
 
             gameInstance.addCreateHandler({
                 handler: function() {
@@ -34,7 +33,6 @@ define(["constants", "map/mapTile", "structure/baseStructure", "structure/neutra
                                 y: i
                             }, {
                                 structure: NeutralStructure,
-                                batch: neutralSpritesBatch,
                             });
                             structureCounter--;
                         } else {

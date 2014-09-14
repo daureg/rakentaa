@@ -5,7 +5,7 @@ define(["game"], function(Game) {
      * @param {String} spriteName
      * @param {Object} options type of structure + SpriteBatch
      */
-    return function(worldPos, spriteName, options, batch) {
+    return function(worldPos, spriteName, options) {
         this.spriteName = spriteName;
         this.sprite = null;
         this.worldPos = worldPos;
@@ -16,7 +16,7 @@ define(["game"], function(Game) {
             handler: function() {
                 this.sprite = new Phaser.Sprite(game, this.worldPos.x, this.worldPos.y, this.spriteName);
                 this.sprite.anchor.setTo(0.5, 0.5);
-                batch.add(this.sprite);
+                game[options.batchName].add(this.sprite);
             },
             scope: this
         });

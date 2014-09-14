@@ -13,7 +13,12 @@ define(["game", "constants", "utils"], function(Game, Constants, Utils) {
 
         gameInstance.addCreateHandler({
             handler: function() {
-                this.sprite = gameInstance.game.add.sprite(this.mapPosition.x * Constants.tileSize, this.mapPosition.y * Constants.tileSize, this.type.spriteName);
+                // this.sprite = gameInstance.game.add.sprite(this.mapPosition.x * Constants.tileSize, this.mapPosition.y * Constants.tileSize, this.type.spriteName);
+                this.sprite = new Phaser.Sprite(gameInstance.game,
+                                                this.mapPosition.x * Constants.tileSize,
+                                                this.mapPosition.y * Constants.tileSize,
+                                                this.type.spriteName);
+                gameInstance.game.backgroundBatch.add(this.sprite);
             },
             scope: this
         });
@@ -24,7 +29,7 @@ define(["game", "constants", "utils"], function(Game, Constants, Utils) {
                 this.structure = new
                 options.structure(Utils.cellIndexToWorldCoords(this.mapPosition.x,
                                                                this.mapPosition.y),
-                                  options.structureOptions, options.batch);
+                                  options.structureOptions || {});
             }
         }
 

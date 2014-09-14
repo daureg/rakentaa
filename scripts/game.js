@@ -86,6 +86,8 @@ define(["constants"], function(Constants) {
          * Preloading assets (images...)
          */
         function preload() {
+            this.game.backgroundBatch = this.game.add.group(undefined, "BackgroundTiles", false);
+            this.game.neutralStructureBatch = this.game.add.group(undefined, "NeutralStructures", false);
             _.forIn(Constants.spritesInfo, function(sprite) {
                 this.game.load.image(sprite.name, sprite.path);
             }, this);
