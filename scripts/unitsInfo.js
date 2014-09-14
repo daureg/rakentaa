@@ -1,5 +1,5 @@
 define(["constants", "game"], function(Constants, Game) {
-    var units = {
+    var unitsInfo = {
         bg_base: {
             name: "Simple virus",
             faction: Constants.factions.badGuys,
@@ -45,12 +45,12 @@ define(["constants", "game"], function(Constants, Game) {
     var game = gameInstance.game;
     gameInstance.addPreloadHandler({
         handler: function() {
-            _.forOwn(units, function(unit, name) {
+            _.forOwn(unitsInfo, function(unit, name) {
                 game.load.image(name, unit.sprite);
             });
         },
         scope: this
     });
 
-    return units;
+    return unitsInfo;
 });

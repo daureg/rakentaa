@@ -1,6 +1,6 @@
 //TODO: Move it to a package when we have different types of armies
-define(["constants", "units", "log", "game", "map/map", "utils"],
-    function(Constants, Units, Log, Game, Map, Utils) {
+define(["constants", "unitsInfo", "log", "game", "map/map", "utils"],
+    function(Constants, UnitsInfo, Log, Game, Map, Utils) {
         /**
          * Create a new army
          * @param {Integer} index the number of the corresponding player
@@ -40,7 +40,7 @@ define(["constants", "units", "log", "game", "map/map", "utils"],
              * @param {Integer} howMuch quantity
              */
             this.addUnits = function(what, howMuch) {
-                Log.assert(Units.hasOwnProperty(what), what + " is not a valid unit");
+                Log.assert(UnitsInfo.hasOwnProperty(what), what + " is not a valid unit");
                 if (this.units.hasOwnProperty(what)) {
                     this.units[what] += howMuch;
                     if (this.units[what] <= 0) {
