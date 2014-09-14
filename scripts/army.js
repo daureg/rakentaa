@@ -90,10 +90,11 @@ define(["constants", "units", "log", "game", "map/map", "utils"],
                 this.sprite.y = mapDest.y;
                 this.mapPos = _.clone(this.dest);
                 this.focusCamera();
-                this.dest = null;
                 this.pathSprites.removeAll();
                 this.movePoint -= this.lastMoveSize;
                 this.lastMoveSize = 0;
+                map.armyArrival(this, this.dest);
+                this.dest = null;
             };
 
             /**

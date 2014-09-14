@@ -4,5 +4,9 @@ define(["structure/structure", "constants"], function(Structure, Constants) {
         this.prototype = new Structure(position,
                                        Constants.spritesInfo.neutralStructure.name,
                                        options);
+
+        this.onArmy = function onArmy(army) {
+            console.log(army);
+        };
     };
 });

@@ -17,6 +17,27 @@ define(["constants", "map/mapTile", "structure/baseStructure", "structure/neutra
             });
 
             /**
+             * Dispatch the event of an army arrival to the corresponding object
+             * on this cell.
+             */
+            this.armyArrival = function armyArrival(army, whichCell) {
+                for (var i = 0, len = context.players.length; i < len; i++) {
+                    if (i === context.getCurrentPlayerIndex()) {
+                        continue;
+                    }
+                    var sameCell = _.isEqual(context.players[i].army.mapPos,
+                                             whichCell);
+                    if (sameCell) {
+                        console.log("Fight!");
+                    }
+                }
+                var dest = this.tiles[whichCell.y][whichCell.x];
+                if (dest.structure) {
+                    dest.structure.onArmy(army);
+                }
+            };
+
+            /**
              * Draws a randomly generated map on the canvas
              */
             this.drawRandomMap = function drawRandomMap() {

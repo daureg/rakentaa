@@ -20,6 +20,5 @@ define(["game"], function(Game) {
             },
             scope: this
         });
-
     };
 });

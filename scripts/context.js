@@ -51,8 +51,12 @@ define(["player", "game", "map/map", "log", "utils"], function(Player, Game, Map
             this.getCurrentPlayer().army.setDestination(cell);
         }
 
+        this.getCurrentPlayerIndex = function() {
+            return this.turnCounter % this.playerNumber;
+        };
+
         this.getCurrentPlayer = function() {
-            return this.players[this.turnCounter % this.playerNumber];
+            return this.players[this.getCurrentPlayerIndex()];
         };
 
         this.nextTurn = function() {
