@@ -5,15 +5,16 @@ define(["player", "game", "map/map", "log", "utils"], function(Player, Game, Map
         this.playerNumber = 2;
         this.players = [];
 
+
+        var gameInstance = Game.getInstance();
+        var map = Map.getInstance(this);
+        var game = gameInstance.game;
+
         //TODO: factions should be chosen by human players at the beginning
         var tmpFactions = ["goodGuys", "badGuys"];
         for (var i = 0, len = this.playerNumber; i < len; i++) {
             this.players.push(new Player(i, tmpFactions[i]));
         }
-
-        var gameInstance = Game.getInstance();
-        var map = Map.getInstance();
-        var game = gameInstance.game;
 
         gameInstance.addPreloadHandler({
             handler: function() {

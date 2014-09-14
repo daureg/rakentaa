@@ -3,8 +3,9 @@ define(["constants", "map/mapTile", "structure/baseStructure", "structure/neutra
         /**
          * Map constructor
          */
-        function Map() {
+        function Map(context) {
             this.tiles = [];
+            this.context = context;
             var gameInstance = Game.getInstance();
             var game = gameInstance.game;
 
@@ -109,9 +110,14 @@ define(["constants", "map/mapTile", "structure/baseStructure", "structure/neutra
         var instance = null;
 
         return {
-            getInstance: function() {
+            getInstance: function(context) {
                 if (instance === null) {
-                    instance = new Map();
+                    if (context !== null || context !== undefined) {
+                        instance = new Map(context);
+                    }
+                    else {
+                        throw Error("Can't build a map without a game context");
+                    }
                 }
                 return instance;
             }
