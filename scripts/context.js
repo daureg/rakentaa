@@ -1,9 +1,10 @@
-define(["player", "game", "map/map", "log", "utils"], function(Player, Game, Map, Log, Utils) {
+define(["player", "game", "map/map", "log", "utils", "constants"], function(Player, Game, Map, Log, Utils, Constants) {
     function Context(options) {
         this.debug = options.debug || false;
         this.turnCounter = -1;
         this.playerNumber = 2;
         this.players = [];
+        this.mapType = Constants.mapTypes.heightMap;
 
 
         var gameInstance = Game.getInstance();

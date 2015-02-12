@@ -19,44 +19,61 @@ var spritesInfo = {
         name: "blueArmy",
         path: "../img/blue-flag.png"
     },
-    networkNode:{
+    networkNode: {
         name: "networkNode",
-        path: "../img/map/blue.png"
+        path: "../img/map/green32.png"
     },
-    firewallNode:{
+    firewallNode: {
         name: "firewallNode",
-        path: "../img/map/orange.png"
+        path: "../img/map/orange32.png"
     },
-    terminalNode:{
+    terminalNode: {
         name: "terminalNode",
-        path: "../img/map/green.png"
+        path: "../img/map/blue32.png"
+    },
+    iceNode: {
+        name: "iceNode",
+        path: "../img/map/purple32.png"
+    },
+    hubNode: {
+        name: "hubNode",
+        path: "../img/map/yellow32.png"
     }
 };
 
 define({
     mapSize: {
-        w: 32,
-        h: 32
+        w: 64,
+        h: 64
     },
-    tileSize: 64,
+    tileSize: 32,
 
     /**
      * {Object}
      * Available tile types in the application
      */
     mapTileTypes: [{
-        typeId: 0,
+        securityLevel: 2,
         typeName: "Network Node",
         spriteName: "networkNode"
 
+    },{
+        securityLevel: 3,
+        typeName: "Hub Node",
+        spriteName: "hubNode"
+
     }, {
-        typeId: 1,
+        securityLevel: 1,
+        typeName: "Terminal",
+        spriteName: "terminalNode"
+    }, {
+        securityLevel: 4,
         typeName: "Firewall",
         spriteName: "firewallNode"
     }, {
-        typeId: 2,
-        typeName: "Terminal",
-        spriteName: "terminalNode"
+        securityLevel: 0,
+        typeName: "Ice",
+        spriteName: "iceNode"
     }],
 
     // by how much (in world coordinates) the camera move everytime a key is
@@ -112,6 +129,11 @@ define({
         },
     },
 
-    numberOfNeutralStructures: 12
+    numberOfNeutralStructures: 12,
+
+    mapTypes: {
+        random: "RANDOM",
+        heightMap: "HEIGHTMAP"
+    }
 
 });

@@ -1,5 +1,5 @@
-define(["constants", "map/mapTile", "structure/baseStructure", "structure/neutralStructure", "log", "game", "utils"],
-    function(Constants, MapTile, BaseStructure, NeutralStructure, Log, Game, Utils) {
+define(["constants", "log", "game", "utils", "map/mapGenerator"],
+    function(Constants, Log, Game, Utils, MapGenerator) {
         /**
          * Map constructor
          */
@@ -8,6 +8,7 @@ define(["constants", "map/mapTile", "structure/baseStructure", "structure/neutra
             this.context = context;
             var gameInstance = Game.getInstance();
             var game = gameInstance.game;
+            var mapGenerator = new MapGenerator(Constants.mapSize, Constants.mapTileTypes, Constants.numberOfNeutralStructures);
 
             gameInstance.addCreateHandler({
                 handler: function() {
@@ -26,7 +27,7 @@ define(["constants", "map/mapTile", "structure/baseStructure", "structure/neutra
                         continue;
                     }
                     var sameCell = _.isEqual(context.players[i].army.mapPos,
-                                             whichCell);
+                        whichCell);
                     if (sameCell) {
                         console.log("Fight!");
                     }
@@ -40,32 +41,16 @@ define(["constants", "map/mapTile", "structure/baseStructure", "structure/neutra
             /**
              * Draws a randomly generated map on the canvas
              */
-            this.drawRandomMap = function drawRandomMap() {
-                this.tiles = [];
-                var row, randomTypeIndex, randomHasStructure, currentTile;
-                var structureCounter = Constants.numberOfNeutralStructures;
-                for (var i = 0; i < Constants.mapSize.h; i++) {
-                    row = [];
-                    for (var j = 0; j < Constants.mapSize.w; j++) {
-                        randomTypeIndex = Math.floor((Math.random() * Constants.mapTileTypes.length));
-                        randomHasStructure = structureCounter > 0 && Math.random() < 0.3;
-                        if (randomHasStructure) {
-                            currentTile = new MapTile(Constants.mapTileTypes[randomTypeIndex], {
-                                x: j,
-                                y: i
-                            }, {
-                                structure: NeutralStructure,
-                            });
-                            structureCounter--;
-                        } else {
-                            currentTile = new MapTile(Constants.mapTileTypes[randomTypeIndex], {
-                                x: j,
-                                y: i
-                            });
-                        }
-                        row.push(currentTile);
-                    }
-                    this.tiles.push(row);
+            this.drawMap = function() {
+                switch (context.mapType) {
+                    case Constants.mapTypes.random:
+                        this.tiles = mapGenerator.generateRandomMap();
+                        break;
+                    case Constants.mapTypes.heightMap:
+                        this.tiles = mapGenerator.generateHeightMap();
+                        break;
+                    default:
+                        this.tiles = mapGenerator.generateRandomMap();
                 }
             };
 
@@ -125,7 +110,7 @@ define(["constants", "map/mapTile", "structure/baseStructure", "structure/neutra
                 return ray;
             };
 
-            this.drawRandomMap();
+            this.drawMap();
         }
 
         var instance = null;
@@ -135,8 +120,7 @@ define(["constants", "map/mapTile", "structure/baseStructure", "structure/neutra
                 if (instance === null) {
                     if (context !== null || context !== undefined) {
                         instance = new Map(context);
-                    }
-                    else {
+                    } else {
                         throw Error("Can't build a map without a game context");
                     }
                 }
