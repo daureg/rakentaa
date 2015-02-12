@@ -197,7 +197,7 @@ define(["map/mapTile", "structure/neutralStructure", "log"], function(MapTile, N
          * Generates a map, dispatching tiles following a random hieght map
          * @returns {Array(MapTile)} An array of map tiles representing the map
          */
-        this.generateHeightMap = function() {
+        this.generateTopographicMap = function() {
             var tiles = intializeTileArray();
             var intialPosition = {
                 x: Math.floor((Math.random() * mapSize.w)),

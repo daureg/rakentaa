@@ -47,7 +47,7 @@ define(["constants", "log", "game", "utils", "map/mapGenerator"],
                         this.tiles = mapGenerator.generateRandomMap();
                         break;
                     case Constants.mapTypes.heightMap:
-                        this.tiles = mapGenerator.generateHeightMap();
+                        this.tiles = mapGenerator.generateTopographicMap();
                         break;
                     default:
                         this.tiles = mapGenerator.generateRandomMap();
