@@ -1,4 +1,4 @@
-define(["constants"], function(Constants) {
+define(["constants", "lodash", "Phaser"], function(Constants, _, Phaser) {
     var clientWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     var clientHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 

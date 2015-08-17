@@ -1,4 +1,4 @@
-define(["game"], function(Game) {
+define(["game", "Phaser"], function(Game, Phaser) {
     /**
      * Create a structure on the map
      * @param {Object} worldPos (x,y) coordinates

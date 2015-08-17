@@ -1,6 +1,6 @@
 //TODO: Move it to a package when we have different types of armies
-define(["constants", "unitsInfo", "log", "game", "map/map", "utils"],
-    function(Constants, UnitsInfo, Log, Game, Map, Utils) {
+define(["constants", "unitsInfo", "log", "game", "map/map", "utils", "lodash"],
+    function(Constants, UnitsInfo, Log, Game, Map, Utils, _) {
         /**
          * Create a new army
          * @param {Integer} index the number of the corresponding player

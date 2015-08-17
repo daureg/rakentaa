@@ -1,5 +1,5 @@
-define(["constants", "log", "game", "utils", "map/mapGenerator"],
-    function(Constants, Log, Game, Utils, MapGenerator) {
+define(["constants", "log", "game", "utils", "map/mapGenerator", "lodash"],
+    function(Constants, Log, Game, Utils, MapGenerator, _) {
         /**
          * Map constructor
          */
@@ -29,7 +29,7 @@ define(["constants", "log", "game", "utils", "map/mapGenerator"],
                     var sameCell = _.isEqual(context.players[i].army.mapPos,
                         whichCell);
                     if (sameCell) {
-                        console.log("Fight!");
+                        Log.log("Fight!");
                     }
                 }
                 var dest = this.tiles[whichCell.y][whichCell.x];
@@ -47,7 +47,7 @@ define(["constants", "log", "game", "utils", "map/mapGenerator"],
                         this.tiles = mapGenerator.generateRandomMap();
                         break;
                     case Constants.mapTypes.heightMap:
-                        this.tiles = mapGenerator.generateTopographicMap();
+                        this.tiles = mapGenerator.generateHeightMap();
                         break;
                     default:
                         this.tiles = mapGenerator.generateRandomMap();

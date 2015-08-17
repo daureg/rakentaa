@@ -1,4 +1,4 @@
-define(["constants", "game"], function(Constants, Game) {
+define(["constants", "game", "lodash"], function(Constants, Game, _) {
     var unitsInfo = {
         bg_base: {
             name: "Simple virus",

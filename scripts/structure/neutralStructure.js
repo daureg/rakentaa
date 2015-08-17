@@ -1,4 +1,4 @@
-define(["structure/structure", "constants"], function(Structure, Constants) {
+define(["structure/structure", "constants", "log"], function(Structure, Constants, Log) {
     return function(position, options) {
         options.batchName = "neutralStructureBatch";
         this.prototype = new Structure(position,
@@ -6,7 +6,7 @@ define(["structure/structure", "constants"], function(Structure, Constants) {
                                        options);
 
         this.onArmy = function onArmy(army) {
-            console.log(army);
+            Log.log(army);
         };
     };
 });

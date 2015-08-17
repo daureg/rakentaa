@@ -77,7 +77,7 @@ define(["map/mapTile", "structure/neutralStructure", "log"], function(MapTile, N
          * @param {Array(MapTile)} tiles           The tile array
          * @param {Object}         currentPosition The current position in the tile array
          */
-        var topographicMap = function(tiles, currentPosition) {
+        var propagateHeightMap = function(tiles, currentPosition) {
             // Get the neighbourhood of the current tile
             var xPy, xMy, xyP, xyM;
             if (currentPosition.x + 1 < mapSize.w) {
@@ -152,7 +152,7 @@ define(["map/mapTile", "structure/neutralStructure", "log"], function(MapTile, N
             var directionShuffler = [
                 function() {
                     if (xPy === null) {
-                        topographicMap(tiles, {
+                        propagateHeightMap(tiles, {
                             x: currentPosition.x + 1,
                             y: currentPosition.y
                         });
@@ -160,7 +160,7 @@ define(["map/mapTile", "structure/neutralStructure", "log"], function(MapTile, N
                 },
                 function() {
                     if (xMy === null) {
-                        topographicMap(tiles, {
+                        propagateHeightMap(tiles, {
                             x: currentPosition.x - 1,
                             y: currentPosition.y
                         });
@@ -168,7 +168,7 @@ define(["map/mapTile", "structure/neutralStructure", "log"], function(MapTile, N
                 },
                 function() {
                     if (xyP === null) {
-                        topographicMap(tiles, {
+                        propagateHeightMap(tiles, {
                             x: currentPosition.x,
                             y: currentPosition.y + 1
                         });
@@ -176,7 +176,7 @@ define(["map/mapTile", "structure/neutralStructure", "log"], function(MapTile, N
                 },
                 function() {
                     if (xyM === null) {
-                        topographicMap(tiles, {
+                        propagateHeightMap(tiles, {
                             x: currentPosition.x,
                             y: currentPosition.y - 1
                         });
@@ -197,14 +197,14 @@ define(["map/mapTile", "structure/neutralStructure", "log"], function(MapTile, N
          * Generates a map, dispatching tiles following a random hieght map
          * @returns {Array(MapTile)} An array of map tiles representing the map
          */
-        this.generateTopographicMap = function() {
+        this.generateHeightMap = function() {
             var tiles = intializeTileArray();
             var intialPosition = {
                 x: Math.floor((Math.random() * mapSize.w)),
                 y: Math.floor((Math.random() * mapSize.h))
             };
             Log.info("Map original seed position: x=" + intialPosition.x + ", y=" + intialPosition.y);
-            topographicMap(tiles, intialPosition);
+            propagateHeightMap(tiles, intialPosition);
 
             return tiles;
         };

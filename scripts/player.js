@@ -1,6 +1,6 @@
 //TODO: Move it to a package when we have different types of players
-define(["constants", "army", "log"],
-    function(Constants, Army, Log) {
+define(["constants", "army", "log", "lodash"],
+    function(Constants, Army, Log, _) {
         /**
          * Create a new player
          * @param {Integer} index the number of the corresponding player

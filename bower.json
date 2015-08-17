@@ -1,0 +1,24 @@
+{
+    "name": "Rakentaa",
+    "description": "A HoMM-like game that probably won't ever be finished.",
+    "dependencies": {
+        "requirejs": "latest",
+        "bootstrap": "latest",
+        "lodash": "2.4.1",
+        "phaser": "2.4.2"
+    },
+    "moduleType": [
+        "amd"
+    ],
+    "authors": [
+        "daureg", "thebrao"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ]
+}

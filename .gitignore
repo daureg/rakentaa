@@ -37,3 +37,5 @@ Session.vim
 .netrwhist
 *~
 .vimrc
+node_modules/
+bower_components/

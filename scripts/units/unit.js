@@ -1,4 +1,4 @@
-define([], function() {
+define(["lodash"], function(_) {
     /**
      * Create a unit based on `info`
      */
@@ -6,4 +6,3 @@ define([], function() {
         _.extend(this, info);
     };
 });
-

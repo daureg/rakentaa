@@ -1,4 +1,4 @@
-define(["game", "constants", "utils"], function(Game, Constants, Utils) {
+define(["game", "constants", "utils", "Phaser"], function(Game, Constants, Utils, Phaser) {
     /**
      * MapTile constructor
      * @param {Object} type the type object of the map
@@ -15,9 +15,9 @@ define(["game", "constants", "utils"], function(Game, Constants, Utils) {
             handler: function() {
                 // this.sprite = gameInstance.game.add.sprite(this.mapPosition.x * Constants.tileSize, this.mapPosition.y * Constants.tileSize, this.type.spriteName);
                 this.sprite = new Phaser.Sprite(gameInstance.game,
-                                                this.mapPosition.x * Constants.tileSize,
-                                                this.mapPosition.y * Constants.tileSize,
-                                                this.type.spriteName);
+                    this.mapPosition.x * Constants.tileSize,
+                    this.mapPosition.y * Constants.tileSize,
+                    this.type.spriteName);
                 gameInstance.game.backgroundBatch.add(this.sprite);
             },
             scope: this
@@ -28,8 +28,8 @@ define(["game", "constants", "utils"], function(Game, Constants, Utils) {
             if (options.structure) {
                 this.structure = new
                 options.structure(Utils.cellIndexToWorldCoords(this.mapPosition.x,
-                                                               this.mapPosition.y),
-                                  options.structureOptions || {});
+                        this.mapPosition.y),
+                    options.structureOptions || {});
             }
         }
 

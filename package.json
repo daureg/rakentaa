@@ -1,0 +1,26 @@
+{
+    "name": "Rakentaa",
+    "description": "A HoMM-like game that probably won't ever be finished.",
+    "version": "0.0.1",
+    "author": "daureg & thebrao",
+    "scripts": {
+        "install": "gulp bower"
+    },
+    "main": "scripts/main.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/daureg/rakentaa.git"
+    },
+    "bugs": {
+        "url": "https://github.com/daureg/rakentaa/issues"
+    },
+    "devDependencies": {
+        "gulp": "*",
+        "bower": "*",
+        "gulp-bower": "*",
+        "connect": "*",
+        "serve-static": "*"
+    },
+    "analyze": true,
+    "license": "MIT"
+}
