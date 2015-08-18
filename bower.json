@@ -5,7 +5,8 @@
         "requirejs": "latest",
         "bootstrap": "latest",
         "lodash": "2.4.1",
-        "phaser": "2.4.2"
+        "phaser": "2.4.2",
+        "mithril": "0.2.0"
     },
     "moduleType": [
         "amd"

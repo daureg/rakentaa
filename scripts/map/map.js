@@ -1,11 +1,12 @@
-define(["constants", "log", "game", "utils", "map/mapGenerator", "lodash"],
-    function(Constants, Log, Game, Utils, MapGenerator, _) {
+define(["constants", "log", "game", "utils", "map/mapGenerator", "lodash", "context"],
+    function(Constants, Log, Game, Utils, MapGenerator, _, Context) {
         /**
          * Map constructor
          */
-        function Map(context) {
+        function Map() {
             this.tiles = [];
-            this.context = context;
+
+            var context = Context.getInstance();
             var gameInstance = Game.getInstance();
             var game = gameInstance.game;
             var mapGenerator = new MapGenerator(Constants.mapSize, Constants.mapTileTypes, Constants.numberOfNeutralStructures);
@@ -23,13 +24,12 @@ define(["constants", "log", "game", "utils", "map/mapGenerator", "lodash"],
              */
             this.armyArrival = function armyArrival(army, whichCell) {
                 for (var i = 0, len = context.players.length; i < len; i++) {
-                    if (i === context.getCurrentPlayerIndex()) {
-                        continue;
-                    }
-                    var sameCell = _.isEqual(context.players[i].army.mapPos,
-                        whichCell);
-                    if (sameCell) {
-                        Log.log("Fight!");
+                    if (context.players[i] !== context.currentPlayer) {
+                        var sameCell = _.isEqual(context.players[i].army.mapPos,
+                            whichCell);
+                        if (sameCell) {
+                            Log.log("Fight!");
+                        }
                     }
                 }
                 var dest = this.tiles[whichCell.y][whichCell.x];
@@ -116,13 +116,9 @@ define(["constants", "log", "game", "utils", "map/mapGenerator", "lodash"],
         var instance = null;
 
         return {
-            getInstance: function(context) {
+            getInstance: function() {
                 if (instance === null) {
-                    if (context !== null || context !== undefined) {
-                        instance = new Map(context);
-                    } else {
-                        throw Error("Can't build a map without a game context");
-                    }
+                    instance = new Map();
                 }
                 return instance;
             }

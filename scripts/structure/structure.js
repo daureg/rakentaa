@@ -5,7 +5,7 @@ define(["game", "Phaser"], function(Game, Phaser) {
      * @param {String} spriteName
      * @param {Object} options type of structure + SpriteBatch
      */
-    return function(worldPos, spriteName, options) {
+    return function Structure(worldPos, spriteName, options) {
         this.spriteName = spriteName;
         this.sprite = null;
         this.worldPos = worldPos;

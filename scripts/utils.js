@@ -1,4 +1,4 @@
-define(["constants", "log"], function(Constants, Log) {
+define(["constants", "mithril"], function(Constants, m) {
     return {
         isCellInsideMap: function(cellX, cellY) {
             return cellX >= 0 && cellX <= Constants.mapSize.w && cellY >= 0 && cellY <= Constants.mapSize.h;
@@ -24,6 +24,6 @@ define(["constants", "log"], function(Constants, Log) {
                 x: Math.floor(x / Constants.tileSize),
                 y: Math.floor(y / Constants.tileSize)
             };
-        },
+        }
     };
 });
