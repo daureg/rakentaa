@@ -31,6 +31,7 @@ define(["game", "log", "utils", "constants", "Phaser", "mithril"],
                 this.currentPlayer = this.players[turnCounter % this.playerNumber];
                 this.currentPlayer.startTurn();
 
+                m.redraw.strategy("diff");
                 m.redraw();
             };
 
