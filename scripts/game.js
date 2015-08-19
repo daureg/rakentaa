@@ -1,7 +1,17 @@
+/**
+ * The container for phaser game operations
+ * @module
+ */
 define(["constants", "lodash", "Phaser"], function(Constants, _, Phaser) {
     var clientWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     var clientHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
+    /**
+     * The container for phaser game operations
+     * @private
+     * @class
+     * @memberof module:game~
+     */
     function GameInstance() {
 
         this.game = new Phaser.Game(clientWidth, clientHeight, Phaser.AUTO, 'canvas', null);
@@ -152,9 +162,22 @@ define(["constants", "lodash", "Phaser"], function(Constants, _, Phaser) {
         }
     }
 
+    /**
+     * The container for phaser game operations
+     * @memberof module:game~
+     * @private
+     * @type {module:game~GameInstance}
+     */
     var instance = null;
 
-    return {
+    /**
+     * @alias module:game
+     */
+    var game = {
+        /**
+         * Returns the game current instance
+         * @returns {module:game~GameInstance}
+         */
         getInstance: function() {
             if (instance === null) {
                 instance = new GameInstance();
@@ -163,4 +186,5 @@ define(["constants", "lodash", "Phaser"], function(Constants, _, Phaser) {
         }
     };
 
+    return game;
 });

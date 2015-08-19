@@ -1,9 +1,38 @@
+/**
+ * The game context
+ * @module
+ */
 define(["game", "log", "utils", "constants", "Phaser", "mithril"],
     function(Game, Log, Utils, Constants, Phaser, m) {
-        function Context() {
+        /**
+         * A context object
+         * @class
+         * @private
+         * @memberof module:context~
+         */
+        var Context = function() {
+            /**
+             * If the debug mode is active
+             * @type {boolean}
+             */
             this.debug = Constants.debug;
+
+            /**
+             * the number of players
+             * @type {number}
+             */
             this.playerNumber = 2;
+
+            /**
+             * The players
+             * @type {Array.<module:player/player>}
+             */
             this.players = [];
+
+            /**
+             * The current type of map
+             * @type {module:constants.mapTypes}
+             */
             this.mapType = Constants.mapTypes.heightMap;
 
             var gameInstance = Game.getInstance();
@@ -26,6 +55,9 @@ define(["game", "log", "utils", "constants", "Phaser", "mithril"],
                 this.currentPlayer.army.setDestination(cell);
             }
 
+            /**
+             * Performs actions to pass the turn
+             */
             this.nextTurn = function() {
                 turnCounter++;
                 this.currentPlayer = this.players[turnCounter % this.playerNumber];
@@ -36,16 +68,31 @@ define(["game", "log", "utils", "constants", "Phaser", "mithril"],
             };
 
             gameInstance.start();
-        }
+        };
 
+        /**
+         * The current instance of the context
+         * @private
+         * @memberof module:context~
+         * @type {module:context~Context}
+         */
         var instance = null;
 
-        return {
-            getInstance: function(options) {
+        /**
+         * @alias module:context
+         */
+        var context = {
+            /**
+             * Returns the current instance of the context
+             * @returns {module:context~Context} the current instance of the context
+             */
+            getInstance: function() {
                 if (instance === null) {
-                    instance = new Context(options);
+                    instance = new Context();
                 }
                 return instance;
             }
         };
+
+        return context;
     });

@@ -4,7 +4,7 @@
     "version": "0.0.1",
     "author": "daureg & thebrao",
     "scripts": {
-        "install": "gulp bower"
+        "install": "gulp install:libs"
     },
     "main": "scripts/main.js",
     "repository": {
@@ -15,9 +15,12 @@
         "url": "https://github.com/daureg/rakentaa/issues"
     },
     "devDependencies": {
+        "del": "*",
         "gulp": "*",
         "bower": "*",
         "gulp-bower": "*",
+        "gulp-shell": "*",
+        "jsdoc": "*",
         "connect": "*",
         "serve-static": "*"
     },

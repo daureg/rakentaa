@@ -1,0 +1,23 @@
+{
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": ["jsdoc", "closure"]
+    },
+    "source": {
+        "include": ["./scripts"],
+        "includePattern": ".+\\.js(doc)?$"
+    },
+    "plugins": [],
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false
+    },
+    "opts": {
+        "destination": "./doc/",
+        "recurse": true,
+        "private": true,
+        "monospaceLinks": false,
+        "cleverLinks": true,
+        "outputSourceFiles": false
+    }
+}

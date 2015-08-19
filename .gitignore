@@ -39,3 +39,4 @@ Session.vim
 .vimrc
 node_modules/
 bower_components/
+doc/

@@ -1,3 +1,7 @@
+/**
+ * The details on all units
+ * @module
+ */
 define(["constants", "game", "lodash"], function(Constants, Game, _) {
     var unitsInfo = {
         bg_base: {

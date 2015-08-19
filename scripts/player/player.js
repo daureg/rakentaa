@@ -1,5 +1,7 @@
-//TODO: Move it to a package when we have different types of players
-define(["constants", "army", "log", "lodash", "player/resources"],
+/**
+ * @module
+ */
+define(["constants", "player/army", "log", "lodash", "player/resources"],
     function(Constants, Army, Log, _, Resources) {
         /**
          * Create a new player

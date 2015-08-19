@@ -7,7 +7,10 @@ require.config({
     }
 });
 
-
+/**
+ * The main module
+ * @module
+ */
 define(["game", "map/map", "context", "player/player", "ui/uiLoader"],
     function(Game, Map, Context, Player, UiLoader) {
         Game.getInstance();

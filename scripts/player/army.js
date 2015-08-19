@@ -1,12 +1,15 @@
-//TODO: Move it to a package when we have different types of armies
+/**
+ * @module
+ */
 define(["constants", "unitsInfo", "log", "game", "map/map", "utils", "lodash"],
     function(Constants, UnitsInfo, Log, Game, Map, Utils, _) {
         /**
          * Create a new army
+         * @class
          * @param {Integer} index the number of the corresponding player
          * @param {Integer} movePoint how much cell can be travelled in one turn
          */
-        return function(index, movePoint) {
+        function Army(index, movePoint) {
             this.dest = null;
             this.lastMoveSize = 0;
             this.units = {};
@@ -36,6 +39,7 @@ define(["constants", "unitsInfo", "log", "game", "map/map", "utils", "lodash"],
             });
 
             /**
+             * @instance
              * @param {String} what name of the creature to add
              * @param {Integer} howMuch quantity
              */
@@ -55,6 +59,10 @@ define(["constants", "unitsInfo", "log", "game", "map/map", "utils", "lodash"],
                 }
                 this.drawUnits();
             };
+
+            /**
+             * @instance
+             */
             this.drawUnits = function() {
                 //TODO do it for real when we decide on UI
                 Log.info(this.units);
@@ -62,6 +70,7 @@ define(["constants", "unitsInfo", "log", "game", "map/map", "utils", "lodash"],
 
             /**
              * Indicate that the player want to go somewhere else
+             * @instance
              * @param {Object} dest Destination cell in cell coordinates
              */
             this.setDestination = function(dest) {
@@ -83,6 +92,7 @@ define(["constants", "unitsInfo", "log", "game", "map/map", "utils", "lodash"],
 
             /**
              * Actually move to the set destination
+             * @instance
              */
             this.moveToCell = function() {
                 var mapDest = Utils.cellIndexToWorldCoords(this.dest.x, this.dest.y);
@@ -99,10 +109,12 @@ define(["constants", "unitsInfo", "log", "game", "map/map", "utils", "lodash"],
 
             /**
              * Center the camera on this army
+             * @instance
              */
             this.focusCamera = function() {
                 var worldPos = Utils.cellIndexToWorldCoords(this.mapPos.x, this.mapPos.y);
                 game.camera.focusOnXY(worldPos.x, worldPos.y);
             };
-        };
+        }
+        return Army;
     });
