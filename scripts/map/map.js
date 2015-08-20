@@ -1,9 +1,20 @@
+/**
+ * Container for all map operations
+ * @module
+ */
 define(["constants", "log", "game", "utils", "map/mapGenerator", "lodash", "context"],
     function(Constants, Log, Game, Utils, MapGenerator, _, Context) {
         /**
          * Map constructor
+         * @memberof module:map/map~
+         * @private
+         * @class
          */
         function Map() {
+            /**
+             * The list of map tiles
+             * @type {module:map/mapTile}
+             */
             this.tiles = [];
 
             var context = Context.getInstance();
@@ -21,6 +32,8 @@ define(["constants", "log", "game", "utils", "map/mapGenerator", "lodash", "cont
             /**
              * Dispatch the event of an army arrival to the corresponding object
              * on this cell.
+             * @param {module:player/army} army the army moving on the map
+             * @param {Object} whichCell the cell coordinates on which the army is arriving
              */
             this.armyArrival = function armyArrival(army, whichCell) {
                 for (var i = 0, len = context.players.length; i < len; i++) {
@@ -39,7 +52,7 @@ define(["constants", "log", "game", "utils", "map/mapGenerator", "lodash", "cont
             };
 
             /**
-             * Draws a randomly generated map on the canvas
+             * Draws a map on the canvas
              */
             this.drawMap = function() {
                 switch (context.mapType) {
@@ -78,8 +91,16 @@ define(["constants", "log", "game", "utils", "map/mapGenerator", "lodash", "cont
                 return bresenham(sx, sy, ex, ey);
             };
 
-            // TODO: Bresenham's line algorithm from https://gist.github.com/hexusio/5079147
-            // Later we should use some A* pathfinding algorithm.
+            /**
+             * {@link https://gist.github.com/hexusio/5079147 Bresenham's line algorithm}
+             * Later we should use some A* pathfinding algorithm.
+             * @private
+             * @param   {number}         x0 the start point x coordinate
+             * @param   {number}         y0 the start point y coordinate
+             * @param   {number}         x1 the arrival point x coordinate
+             * @param   {number}         y1 the arrival point y coordinate
+             * @returns {Array.<Object>} The array of point forming the best path from start to destination
+             */
             var bresenham = function(x0, y0, x1, y1) {
                 var dx = Math.abs(x1 - x0);
                 var dy = Math.abs(y1 - y0);
@@ -113,9 +134,22 @@ define(["constants", "log", "game", "utils", "map/mapGenerator", "lodash", "cont
             this.drawMap();
         }
 
+        /**
+         * Map instance
+         * @memberof module:map/map~
+         * @private
+         * @type {module:map/map~Map}
+         */
         var instance = null;
 
-        return {
+        /**
+         * @alias module:map/map
+         */
+        var map = {
+            /**
+             * Returns the current map instance
+             * @returns {module:map/map~Map} the current map instance
+             */
             getInstance: function() {
                 if (instance === null) {
                     instance = new Map();
@@ -123,5 +157,5 @@ define(["constants", "log", "game", "utils", "map/mapGenerator", "lodash", "cont
                 return instance;
             }
         };
-
+        return map;
     });

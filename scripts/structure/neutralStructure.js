@@ -1,14 +1,23 @@
-define(["structure/structure", "constants", "log"], function(Structure, Constants, Log) {
-    return function NeutralStructure(position, options) {
+/**
+ * A neutral structure that provides bonuses if captured
+ * @module
+ */
+define(["structure/structure", "constants"], function(Structure, Constants) {
+    /**
+     * A base structure that each player starts with
+     * @alias module:structure/neutralStructure
+     * @class
+     * @extends module:structure/structure
+     * @inheritdoc
+     * @param   {Object}                                            position  position of this structure on the map
+     * @param   {module:structure/structure~StructureOptionsObject} [options] options for this structure
+     */
+    function NeutralStructure(position, options) {
         options.batchName = "neutralStructureBatch";
-        var that = new Structure(position,
+        return new Structure(position,
             Constants.spritesInfo.neutralStructure.name,
             options);
+    }
 
-        that.onArmy = function onArmy(army) {
-            Log.log(army);
-        };
-
-        return that;
-    };
+    return NeutralStructure;
 });

@@ -1,17 +1,22 @@
+/**
+ * A set of algorithm to generate maps
+ * @module
+ */
 define(["map/mapTile", "structure/neutralStructure", "log"], function(MapTile, NeutralStructure, Log) {
 
     /**
-     * Constructor for MapGenerator
-     * @param   {Integer}      mapSize                   The size of the map
-     * @param   {Object}       mapTileTypes              The different types available for tiling
-     * @param   {Integer}      numberOfNeutralStructures The max number of neutral structures on the map
-     * @returns {MapGenerator} The map generator instance
+     * A set of algorithm to generate maps
+     * @alias module:map/mapGenerator
+     * @class
+     * @param   {number}                        mapSize                   The size of the map
+     * @param   {module:constants.mapTileTypes} mapTileTypes              The different types available for tiling
+     * @param   {number}                        numberOfNeutralStructures The max number of neutral structures on the map
      */
-    return function MapGenerator(mapSize, mapTileTypes, numberOfNeutralStructures) {
+    function MapGenerator(mapSize, mapTileTypes, numberOfNeutralStructures) {
 
         /**
          * Returns an empty double array of the size of the map
-         * @returns {Array} an empty double array of the size of the map
+         * @returns {Array.<null>} an empty double array of the size of the map
          */
         var intializeTileArray = function() {
             var tiles = [];
@@ -26,7 +31,7 @@ define(["map/mapTile", "structure/neutralStructure", "log"], function(MapTile, N
 
         /**
          * Generates a map, dispatching tiles randomly
-         * @returns {Array(MapTile)} An array of map tiles representing the map
+         * @returns {Array.<module:map/mapTile>} An array of map tiles representing the map
          */
         this.generateRandomMap = function() {
             var tiles = [];
@@ -60,8 +65,8 @@ define(["map/mapTile", "structure/neutralStructure", "log"], function(MapTile, N
 
         /**
          * Get the type corresponding to the given security level
-         * @param   {Integer} securityLevel the security level of the type to get
-         * @returns {Object} The corresponding type object or null if no object was found
+         * @param   {number}                          securityLevel the security level of the type to get
+         * @returns {module:constants~TileTypeObject} The corresponding type object or null if no object was found
          */
         var getTypeBySecurityLevel = function(securityLevel) {
             for (var i = 0; i < mapTileTypes.length; i++) {
@@ -74,8 +79,8 @@ define(["map/mapTile", "structure/neutralStructure", "log"], function(MapTile, N
 
         /**
          * Recursive function propagating t
-         * @param {Array(MapTile)} tiles           The tile array
-         * @param {Object}         currentPosition The current position in the tile array
+         * @param {Array.<module:map/mapTile>} tiles           The tile array
+         * @param {Object}                     currentPosition The current position in the tile array
          */
         var propagateHeightMap = function(tiles, currentPosition) {
             // Get the neighbourhood of the current tile
@@ -150,6 +155,7 @@ define(["map/mapTile", "structure/neutralStructure", "log"], function(MapTile, N
 
             // Array containing the 4 possible direction for propagation
             var directionShuffler = [
+
                 function() {
                     if (xPy === null) {
                         propagateHeightMap(tiles, {
@@ -195,7 +201,7 @@ define(["map/mapTile", "structure/neutralStructure", "log"], function(MapTile, N
 
         /**
          * Generates a map, dispatching tiles following a random hieght map
-         * @returns {Array(MapTile)} An array of map tiles representing the map
+         * @returns {Array.<module:map/mapTile>} An array of map tiles representing the map
          */
         this.generateHeightMap = function() {
             var tiles = intializeTileArray();
@@ -208,6 +214,7 @@ define(["map/mapTile", "structure/neutralStructure", "log"], function(MapTile, N
 
             return tiles;
         };
+    }
 
-    };
+    return MapGenerator;
 });

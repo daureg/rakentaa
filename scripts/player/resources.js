@@ -1,13 +1,18 @@
 /**
- * Class handling the different resources for a player
- * @class
+ * Module handling the different resources for a player
+ * @module
  */
 define(["player/resource/gold", "player/resource/gems", "lodash"],
     function(Gold, Gems, _) {
+        /**
+         * Creates resources
+         * @alias module:player/resources
+         * @class
+         */
         function Resources() {
             /**
              * list of resources
-             * @type {Object}
+             * @enum {module:player/resource/resource}
              */
             this.resourcesList = {
                 gold: new Gold(),

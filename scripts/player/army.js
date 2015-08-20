@@ -1,29 +1,54 @@
 /**
+ * Module for the player army
  * @module
  */
 define(["constants", "unitsInfo", "log", "game", "map/map", "utils", "lodash"],
     function(Constants, UnitsInfo, Log, Game, Map, Utils, _) {
         /**
          * Create a new army
+         * @alias module:player/army
          * @class
          * @param {Integer} index the number of the corresponding player
          * @param {Integer} movePoint how much cell can be travelled in one turn
          */
         function Army(index, movePoint) {
-            this.dest = null;
-            this.lastMoveSize = 0;
-            this.units = {};
+            /**
+             * Sprite of the army
+             * @type {Paser.Sprite}
+             */
             this.sprite = null;
-            this.pathSprites = null;
+
+            /**
+             * How much cell can be travelled in one turn
+             * @type {Object}
+             */
             this.movePoint = movePoint;
-            //TODO: read initial position from the map itself?
-            // this.mapPos = [_.random(Constants.mapSize.w), _.random(Constants.mapSize.h)]
+
+            /**
+             * Postion of the army on the map </br>
+             * TODO: read initial position from the map itself? </br>
+             * this.mapPos = [_.random(Constants.mapSize.w), _.random(Constants.mapSize.h)]
+             * @type {Object}
+             */
             this.mapPos = {
                 x: 3 + index,
                 y: 1 + index
             };
+
+            /**
+             * Army name
+             * @type {string}
+             */
             this.name = Constants.playersName[index];
 
+            /**
+             * Units in this army
+             */
+            this.units = {};
+
+            var dest = null;
+            var lastMoveSize = 0;
+            var pathSprites = null;
             var gameInstance = Game.getInstance();
             var game = gameInstance.game;
             var map = Map.getInstance();
@@ -33,15 +58,15 @@ define(["constants", "unitsInfo", "log", "game", "map/map", "utils", "lodash"],
                 handler: function() {
                     this.sprite = game.add.sprite(worldPos.x, worldPos.y, Constants.spritesInfo[this.name].name);
                     this.sprite.anchor.setTo(0.5, 0.5);
-                    this.pathSprites = game.add.group(undefined, Constants.pathPrefix + index);
+                    pathSprites = game.add.group(undefined, Constants.pathPrefix + index);
                 },
                 scope: this
             });
 
             /**
-             * @instance
-             * @param {String} what name of the creature to add
-             * @param {Integer} howMuch quantity
+             * Adds units to this army
+             * @param {string} what name of the creature to add
+             * @param {number} howMuch quantity
              */
             this.addUnits = function(what, howMuch) {
                 Log.assert(UnitsInfo.hasOwnProperty(what), what + " is not a valid unit");
@@ -61,7 +86,7 @@ define(["constants", "unitsInfo", "log", "game", "map/map", "utils", "lodash"],
             };
 
             /**
-             * @instance
+             * Draws the units
              */
             this.drawUnits = function() {
                 //TODO do it for real when we decide on UI
@@ -70,46 +95,43 @@ define(["constants", "unitsInfo", "log", "game", "map/map", "utils", "lodash"],
 
             /**
              * Indicate that the player want to go somewhere else
-             * @instance
-             * @param {Object} dest Destination cell in cell coordinates
+             * @param {Object} destination Destination cell in cell coordinates
              */
-            this.setDestination = function(dest) {
-                if (this.dest && dest.x === this.dest.x && dest.y === this.dest.y) {
+            this.setDestination = function(destination) {
+                if (dest && destination.x === dest.x && destination.y === dest.y) {
                     return this.moveToCell();
                 }
-                var path = map.findPath(this.mapPos, dest);
+                var path = map.findPath(this.mapPos, destination);
                 var length = Math.min(path.length, this.movePoint + 1) - 1;
-                this.dest = _.clone(path[length]);
-                this.pathSprites.removeAll();
+                dest = _.clone(path[length]);
+                pathSprites.removeAll();
                 for (var i = 1; i <= length; i++) {
                     var c = Utils.cellIndexToWorldCoords(path[i].x, path[i].y);
                     var s = game.add.sprite(c.x, c.y, Constants.spritesInfo.pathMarker.name);
                     s.anchor.setTo(0.5, 0.5);
-                    this.pathSprites.add(s);
-                    this.lastMoveSize += 1;
+                    pathSprites.add(s);
+                    lastMoveSize += 1;
                 }
             };
 
             /**
              * Actually move to the set destination
-             * @instance
              */
             this.moveToCell = function() {
-                var mapDest = Utils.cellIndexToWorldCoords(this.dest.x, this.dest.y);
+                var mapDest = Utils.cellIndexToWorldCoords(dest.x, dest.y);
                 this.sprite.x = mapDest.x;
                 this.sprite.y = mapDest.y;
-                this.mapPos = _.clone(this.dest);
+                this.mapPos = _.clone(dest);
                 this.focusCamera();
-                this.pathSprites.removeAll();
-                this.movePoint -= this.lastMoveSize;
-                this.lastMoveSize = 0;
-                map.armyArrival(this, this.dest);
-                this.dest = null;
+                pathSprites.removeAll();
+                this.movePoint -= lastMoveSize;
+                lastMoveSize = 0;
+                map.armyArrival(this, dest);
+                dest = null;
             };
 
             /**
              * Center the camera on this army
-             * @instance
              */
             this.focusCamera = function() {
                 var worldPos = Utils.cellIndexToWorldCoords(this.mapPos.x, this.mapPos.y);

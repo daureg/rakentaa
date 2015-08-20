@@ -1,6 +1,16 @@
+/**
+ * View for the resources panel
+ * @module
+ */
 define(["mithril"],
     function(m) {
-        return function ResourcesView(ctrl) {
+        /**
+         * View for the resources panel
+         * @class
+         * @alias module:ui/resources/resourcesView
+         * @param   {module:ui/resources/resourcesController} ctrl the controller for this view
+         */
+        function ResourcesView(ctrl) {
             return m("div", {
                 id: "resources",
             }, [
@@ -14,6 +24,7 @@ define(["mithril"],
                     ];
                 })
             ]);
-        };
+        }
+        return ResourcesView;
     }
 );
